@@ -1,0 +1,107 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+      <h:head>
+      	<h:title value="GOLS"/>
+      	
+      	<script type="text/javascript">
+    //put this somewhere in "show.html"
+    //using window onload event to run function
+    //so function runs after all content has been loaded.
+    //After refresh this entire script will run again.
+    window.onload = function () {
+        'use strict';
+        var millisecondsBeforeRefresh = 1000; //Adjust time here
+        window.setTimeout(function () {
+            //refresh the entire document
+            document.location.reload();
+        }, millisecondsBeforeRefresh);
+    };
+</script>
+      	
+      </h:head>
+	<h:body>
+		
+		
+		<h:dataTable var="n" value="#{requisicaoJSFBean.services}" 
+		  				id="demo-table"
+		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
+		  				rendered="#{!empty requisicaoJSFBean.services}" 
+		  				style="text-align:left; font-size:17; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
+		  				width="100%">
+		  	
+		  	  <h:column rendered="#{!empty requisicaoJSFBean.services}">
+			    	<f:facet name="header">Service</f:facet>
+    				#{n.id}
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.services}">
+			    	<f:facet name="header">url</f:facet>
+    				#{n.url}
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.services}">
+			    	<f:facet name="header">Type</f:facet>
+    				#{n.requestType}
+			  </h:column>
+		</h:dataTable>	
+		<br />
+		
+		<h:dataTable var="n" value="#{requisicaoJSFBean.problems}" 
+		  				id="demo-table"
+		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
+		  				rendered="#{!empty requisicaoJSFBean.problems}" 
+		  				style="text-align:left; font-size:17; border-style:solid; tr:nth-child(even){background-color: red}; th {background-color: black;color: white;}"
+		  				width="100%">
+		  	
+		  	  <h:column rendered="#{!empty requisicaoJSFBean.problems}">
+			    	<f:facet name="header">Alert </f:facet>
+    				#{n.id}
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.problems}">
+			    	<f:facet name="header">url</f:facet>
+    				#{n.url}
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.problems}">
+			    	<f:facet name="header">Time Out (min) </f:facet>
+    				#{n.timeOut}
+			  </h:column>
+		</h:dataTable>	
+		
+		 <br />
+		 <h:dataTable var="n" value="#{requisicaoJSFBean.allHistorics}" 
+		  				id="demo-table"
+		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
+		  				rendered="#{!empty requisicaoJSFBean.allHistorics}" 
+		  				style="text-align:left; font-size:17; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
+		  				width="100%">
+		  	
+		  	  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			    	<f:facet name="header">Service</f:facet>
+    				#{n.service.id} 
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			    	<f:facet name="header">Nome</f:facet>
+    				#{n.service.name}
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			    	<f:facet name="header">Url</f:facet>
+    				#{n.service.url}
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			    	<f:facet name="header">Details</f:facet>
+    				#{n.details}
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			    	<f:facet name="header">Time</f:facet>
+    				#{n.timeString}
+			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			    	<f:facet name="header">Num</f:facet>
+    				#{n.requisicao}
+			  </h:column>
+		</h:dataTable>	  
+		
+		   
+	</h:body>
+</html>
