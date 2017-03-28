@@ -5,9 +5,9 @@
       xmlns:f="http://java.sun.com/jsf/core">
       <h:head>
       	<h:title value="HISTORICO DE REQUISICOES"/>
-      	
-      	
-      	
+      	<script type="text/javascript">
+  		setTimeout(function () { location.reload(true); }, 1000);
+		</script>
       </h:head>
 	<h:body>
 		
@@ -32,7 +32,7 @@
     				#{n.requestType}
 			  </h:column>
 		</h:dataTable>	
-		<br />
+		<br /> 
 		
 		<h:dataTable var="n" value="#{requisicaoJSFBean.problems}" 
 		  				id="demo-table"
@@ -81,7 +81,7 @@
 			  </h:column>
 			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
 			    	<f:facet name="header">Time</f:facet>
-    				#{n.timeString}
+    				#{n.time}
 			  </h:column>
 			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
 			    	<f:facet name="header">Num</f:facet>

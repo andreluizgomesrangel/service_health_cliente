@@ -44,6 +44,8 @@ public class RequisicaoJSFBean {
 		
 		for( Requisicao h : allHistorics ){
 			h.setService(  findService( h.getIdService(), services )  );
+			//System.out.println("OLHAAAA A HOOOOOOOORAAAAAA: "+h.getTime() );
+			
 		}
 		
 		

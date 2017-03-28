@@ -98,8 +98,9 @@ public class Requisicao implements Comparable<Requisicao>{
 		return 0;
 	}
 	public String getTimeString() {
-		System.out.println(time.getTime()+"   "+time.toGMTString()+"    "+time.toString() );
-		return time.toString()+"";
+		//System.out.println(time.getTime()+"   "+time.toGMTString()+"    "+time.toString() );
+		//return time.toString()+"";
+		return " ";
 	}
 	public void setTimeString(String timeString) {
 		this.timeString = "hora de morfar";
