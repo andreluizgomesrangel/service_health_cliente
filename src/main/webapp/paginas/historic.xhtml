@@ -6,87 +6,62 @@
       <h:head>
       	<h:title value="HISTORICO DE REQUISICOES"/>
       	<script type="text/javascript">
-  		setTimeout(function () { location.reload(true); }, 2000);
+  		setTimeout(function () { location.reload(true); }, 30000);
 		</script>
       </h:head>
 	<h:body>
-		
-		
-		<h:dataTable var="n" value="#{requisicaoJSFBean.services}" 
+		  		
+		  		
+		  <h:dataTable var="n" value="#{requisicaoJSFBean.services}" 
 		  				id="demo-table"
 		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
-		  				rendered="#{!empty requisicaoJSFBean.services}" 
-		  				style="text-align:left; font-size:17; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
-		  				width="100%">
-		  	
-		  	  <h:column rendered="#{!empty requisicaoJSFBean.services}">
-			    	<f:facet name="header">Service</f:facet>
-    				#{n.id}
-			  </h:column>
-			  <h:column rendered="#{!empty requisicaoJSFBean.services}">
-			    	<f:facet name="header">url</f:facet>
-    				#{n.url}
-			  </h:column>
-			  <h:column rendered="#{!empty requisicaoJSFBean.services}">
-			    	<f:facet name="header">Type</f:facet>
-    				#{n.requestType}
-			  </h:column>
-		</h:dataTable>	
-		<br /> 
-		
-		<h:dataTable var="n" value="#{requisicaoJSFBean.problems}" 
-		  				id="demo-table"
-		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
-		  				rendered="#{!empty requisicaoJSFBean.problems}" 
-		  				style="text-align:left; font-size:17; border-style:solid; tr:nth-child(even){background-color: red}; th {background-color: black;color: white;}"
-		  				width="100%">
-		  	
-		  	  <h:column rendered="#{!empty requisicaoJSFBean.problems}">
-			    	<f:facet name="header">Alert </f:facet>
-    				#{n.id}
-			  </h:column>
-			  <h:column rendered="#{!empty requisicaoJSFBean.problems}">
-			    	<f:facet name="header">url</f:facet>
-    				#{n.url}
-			  </h:column>
-			  <h:column rendered="#{!empty requisicaoJSFBean.problems}">
-			    	<f:facet name="header">Time Out (min) </f:facet>
-    				#{n.timeOut}
-			  </h:column>
-		</h:dataTable>	
-		
+		  				rendered="#{!empty requisicaoJSFBean.allHistorics}" 
+		  				style="valign:middle; font-size:17; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
+		  				width="55%">
+		  				
+	  			<h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+		    	<f:facet name="header" style="font-weight:bold text-align:left;" >Services</f:facet>
+	  				<img src="#{n.img}"></img>
+	  				    #{n.service.name}
+			  	</h:column>
+		  		
+		  		<h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			    	<f:facet name="header">Hora</f:facet>
+    				#{n.time}
+			  	</h:column>
+		  						
+		  </h:dataTable>
+		  				
 		 <br />
 		 <h:dataTable var="n" value="#{requisicaoJSFBean.allHistorics}" 
 		  				id="demo-table"
 		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
 		  				rendered="#{!empty requisicaoJSFBean.allHistorics}" 
-		  				style="text-align:left; font-size:17; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
-		  				width="100%">
+		  				style="valign:middle; font-size:17; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
+		  				width="55%">
 		  	
-		  	  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
-			    	<f:facet name="header">Service</f:facet>
-    				#{n.service.id} 
+			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			    	<f:facet name="header" style="font-weight:bold text-align:left;" >Remaining Services</f:facet>
+    				<img src="#{n.img}"></img>
+    				    #{n.service.name}
 			  </h:column>
 			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
-			    	<f:facet name="header">Nome</f:facet>
-    				#{n.service.name}
-			  </h:column>
-			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
-			    	<f:facet name="header">Url</f:facet>
-    				#{n.service.url}
-			  </h:column>
-			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
-			    	<f:facet name="header">Details</f:facet>
+			    	<f:facet name="header" style="font-weight:bold text-align:left;">Details</f:facet>
     				#{n.details}
 			  </h:column>
+			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
+			  		<f:facet name="header" style="font-weight:bold text-align:center;">RSS</f:facet>
+    				<a href="#{n.service.url}">
+    					<img src="RSS.png">
+    					</img>
+    				</a>
+			  </h:column>
+			  
 			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
 			    	<f:facet name="header">Time</f:facet>
     				#{n.time}
 			  </h:column>
-			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
-			    	<f:facet name="header">Num</f:facet>
-    				#{n.requisicao}
-			  </h:column>
+			  
 		</h:dataTable>	  
 		
 		   

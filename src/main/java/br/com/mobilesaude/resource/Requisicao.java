@@ -26,6 +26,8 @@ public class Requisicao implements Comparable<Requisicao>{
 	private String timeString;
 	private Service service;
 	
+	String img;
+	
 	public long getId() {
 		return id;
 	}
@@ -53,22 +55,53 @@ public class Requisicao implements Comparable<Requisicao>{
 	public int getResponse() {
 		return response;
 	}
+	
+	public String getImg() {
+		
+		if( response == 200 ){
+			return "status0.gif";
+		}
+		if( response == 404 ){
+			return "status2.gif";
+		}
+		if( response == 500 ){
+			return "status2.gif";
+		}
+		if( response == 503 ){
+			return "status2.gif";
+		}
+		if( response == 504 ){
+			return "status2.gif";
+		}
+		
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	
+	
 	public void setResponse(int response) {
 		
 		if( response == 200 ){
 			setDetails("Service is operating normally");
+			setImg("status0.gif");
 		}
 		if( response == 404 ){
 			setDetails("Not found!");
+			setImg("status2.gif");
 		}
 		if( response == 500 ){
 			setDetails("Internal Server Error");
+			setImg("status2.gif");
 		}
 		if( response == 503 ){
 			setDetails("Service Unavailable");
+			setImg("status2.gif");
 		}
 		if( response == 504 ){
 			setDetails("Gateway Time-out");
+			setImg("status2.gif");
 		}
 
 		
@@ -78,6 +111,8 @@ public class Requisicao implements Comparable<Requisicao>{
 		return service;
 	}
 	public void setService(Service service) {
+		service.setLastRequest(time);
+		service.setImg(img);
 		if( response != 200 ){
 			//System.out.println("Erro!");
 			service.addErro(requisicao);

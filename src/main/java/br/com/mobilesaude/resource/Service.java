@@ -1,6 +1,7 @@
 package br.com.mobilesaude.resource;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -25,6 +26,9 @@ public class Service  implements Comparable<Service> {
 	
 	boolean alert = false;
 	int timeOut = 0;
+	
+	String img;
+	private Date lastRequest;
 	
 	private List<Integer> errors = new ArrayList<Integer>();
 	
@@ -104,6 +108,18 @@ public class Service  implements Comparable<Service> {
 		if( this.id < o.id) return 1;
 		if( this.id > o.id ) return -1;
 		return 0;
+	}
+	public Date getLastRequest() {
+		return lastRequest;
+	}
+	public void setLastRequest(Date lastRequest) {
+		this.lastRequest = lastRequest;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 }
 

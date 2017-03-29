@@ -1,8 +1,10 @@
 package br.com.mobilesaude.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -31,6 +33,7 @@ public class RequisicaoJSFBean {
 	
 	List<Service> problems = new ArrayList<Service>();
 	
+	List<Requisicao> lastHour = new ArrayList<Requisicao>();
 	
 	public RequisicaoJSFBean() throws JAXBException{
 		CRequisicao ch = new CRequisicao();
@@ -44,8 +47,6 @@ public class RequisicaoJSFBean {
 		
 		for( Requisicao h : allHistorics ){
 			h.setService(  findService( h.getIdService(), services )  );
-			//System.out.println("OLHAAAA A HOOOOOOOORAAAAAA: "+h.getTime() );
-			
 		}
 		
 		
@@ -57,11 +58,6 @@ public class RequisicaoJSFBean {
 		for(Service s : services){
 			if( s.isAlert()==true ){
 				problems.add(s);
-				//System.out.print("service: "+s.getId()+" | chamadas: ");
-				//for( Integer i : s.getErrors() ){
-					//System.out.print( "  > "+i+" " );
-				//}
-				//System.out.println(" ");
 			}
 			
 		}
@@ -69,6 +65,13 @@ public class RequisicaoJSFBean {
 		allHistorics.sort(null);
 	}
 
+	
+	public boolean validate(Date now, Date start, Date end) {
+		  if(now == null || start == null || end == null)
+		    return false;
+		  return now.after(start) && now.before(end);
+		}
+	
 	public Service findService( long id, List<Service> list ){
 		for( Service s : list ){
 			if( id == s.getId() ) return s;
