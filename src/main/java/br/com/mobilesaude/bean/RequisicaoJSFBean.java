@@ -35,26 +35,25 @@ public class RequisicaoJSFBean {
 	
 	List<Requisicao> lastHour = new ArrayList<Requisicao>();
 	
-	public RequisicaoJSFBean() throws JAXBException{
+	public RequisicaoJSFBean(){
 		CRequisicao ch = new CRequisicao();
 		CService cs = new CService();
 		
-		allHistorics = ch.getList();
-		services = cs.getlist();
-		
-		
-		
-		
-		for( Requisicao h : allHistorics ){
-			h.setService(  findService( h.getIdService(), services )  );
+		try {
+			allHistorics = ch.getList();
+			services = cs.getlist();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+		for( Requisicao h : allHistorics ){
+			Service s = new Service();
+			s = findService( h.getIdService(), services );
+			h.setService(  s  );
+			System.out.println( "  GEEEEEEEEETTT  "+h.getImg() +"  "+h.getTime());
+		}
 		
-		//allHistorics.get(0).get
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-		Iterator<String> clients = context.getClientIdsWithMessages();
-
 		for(Service s : services){
 			if( s.isAlert()==true ){
 				problems.add(s);
@@ -65,7 +64,6 @@ public class RequisicaoJSFBean {
 		allHistorics.sort(null);
 	}
 
-	
 	public boolean validate(Date now, Date start, Date end) {
 		  if(now == null || start == null || end == null)
 		    return false;

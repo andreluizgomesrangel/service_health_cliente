@@ -27,8 +27,8 @@ public class Service  implements Comparable<Service> {
 	boolean alert = false;
 	int timeOut = 0;
 	
-	String img;
-	private Date lastRequest;
+	String img = new String();
+	private Date lastRequest = new Date();
 	
 	private List<Integer> errors = new ArrayList<Integer>();
 	

@@ -111,10 +111,9 @@ public class Requisicao implements Comparable<Requisicao>{
 		return service;
 	}
 	public void setService(Service service) {
-		service.setLastRequest(time);
-		service.setImg(img);
+		//service.setLastRequest(time);
+		//service.setImg(img);
 		if( response != 200 ){
-			//System.out.println("Erro!");
 			service.addErro(requisicao);
 		}
 		this.service = service;
