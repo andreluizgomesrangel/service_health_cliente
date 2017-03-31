@@ -62,6 +62,11 @@ public class RequisicaoJSFBean {
 		}
 		
 		allHistorics.sort(null);
+		
+		for( int i=0; i<services.size(); i++ ){
+			lastHistorics.add( allHistorics.get( i ) );
+		}
+		
 	}
 
 	public boolean validate(Date now, Date start, Date end) {
