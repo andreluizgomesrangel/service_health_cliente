@@ -31,18 +31,11 @@
     				#{n.details}
 			  </h:column>
 			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
-			  		<f:facet name="header" style="font-weight:bold text-align:center;">RSS</f:facet>
-    				<a href="#{n.service.url}">
-    					<img src="RSS.png">
-    					</img>
-    				</a>
-			  </h:column>
-			  
-			  <h:column rendered="#{!empty requisicaoJSFBean.allHistorics}">
 			    	<f:facet name="header">Time</f:facet>
     				#{n.time}
 			  </h:column>
 			  
+			 
 		</h:dataTable>	  
 		
 		   

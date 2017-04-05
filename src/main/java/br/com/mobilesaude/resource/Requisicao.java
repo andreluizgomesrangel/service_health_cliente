@@ -1,5 +1,8 @@
 package br.com.mobilesaude.resource;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
@@ -62,16 +65,16 @@ public class Requisicao implements Comparable<Requisicao>{
 			return "status0.gif";
 		}
 		if( response == 404 ){
-			return "status2.gif";
+			return "status3.gif";
 		}
 		if( response == 500 ){
-			return "status2.gif";
+			return "status3.gif";
 		}
 		if( response == 503 ){
-			return "status2.gif";
+			return "status3.gif";
 		}
 		if( response == 504 ){
-			return "status2.gif";
+			return "status3.gif";
 		}
 		
 		return img;
@@ -89,19 +92,19 @@ public class Requisicao implements Comparable<Requisicao>{
 		}
 		if( response == 404 ){
 			setDetails("Not found!");
-			setImg("status2.gif");
+			setImg("status3.gif");
 		}
 		if( response == 500 ){
 			setDetails("Internal Server Error");
-			setImg("status2.gif");
+			setImg("status3.gif");
 		}
 		if( response == 503 ){
 			setDetails("Service Unavailable");
-			setImg("status2.gif");
+			setImg("status3.gif");
 		}
 		if( response == 504 ){
 			setDetails("Gateway Time-out");
-			setImg("status2.gif");
+			setImg("status3.gif");
 		}
 
 		
@@ -134,12 +137,17 @@ public class Requisicao implements Comparable<Requisicao>{
 	public String getTimeString() {
 		//System.out.println(time.getTime()+"   "+time.toGMTString()+"    "+time.toString() );
 		//return time.toString()+"";
-		return " ";
+		this.timeString = dataToString( time );
+		return timeString;
 	}
 	public void setTimeString(String timeString) {
-		this.timeString = "hora de morfar";
+		this.timeString = timeString;
 	}
 	
-	
+	public String dataToString(Date d){
+		DateFormat df = new SimpleDateFormat("hh:mm:ss");
+		String reportDate = df.format(d.getTime());
+		return reportDate;
+	}
 	
 }

@@ -100,6 +100,46 @@ public class CRequisicao {
 		return historics.getHitorics();
 	}
 	
+	public List<Requisicao> getDay( String id, String day) throws JAXBException{
+		OkHttpClient client = new OkHttpClient();
+	
+		int code = 0;
+		
+		RequestBody formBody = new FormBody.Builder()
+		        .add("id", id)
+		        .add("day", day)
+		        .build();
+		Request request = new Request.Builder()
+		        .url("http://localhost:8080/Service_Health/ws/servico/requisicao/getDay")
+		        .post(formBody)
+		        .build();
+		Requisicoes historics = null;
+		try {
+		    Response response = client.newCall(request).execute();
+		    
+		    code = response.code();
+		    
+		    String xmlString = new String(response.body().string());
+		    
+		   // System.out.println(xmlString);
+		    JAXBContext jaxbContext = JAXBContext.newInstance(Requisicoes.class);
+		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+		    StringReader reader = new StringReader( xmlString );
+		    
+		    historics = (Requisicoes) unmarshaller.unmarshal(reader);
+		    
+		    //System.out.println(historics.getHitorics().size());
+		    
+		    return historics.getHitorics();
+		    
+		    // Do something with the response.
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		return historics.getHitorics();
+	}
+	
+	
 	public int postRequest( Service s ){
 		
 		int code = 0;
