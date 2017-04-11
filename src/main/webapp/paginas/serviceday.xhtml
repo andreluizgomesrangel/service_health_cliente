@@ -1,0 +1,36 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+      <h:head>
+      	<h:title value="HISTORICO DE REQUISICOES"/>
+      	<script type="text/javascript">
+  		setTimeout(function () { location.reload(true); }, 30000);
+		</script>
+      </h:head>
+	<h:body>
+		  
+		  <h:outputText value="#{serviceJSFBean.id} #{serviceJSFBean.date}" />
+		  		
+		 <br />
+		 <h:dataTable var="n" value="#{serviceJSFBean.serviceHistoric}" 
+		 				border="1"
+		  				width="55%">
+			  <h:column rendered="#{!empty serviceJSFBean.serviceHistoric}">
+			    	<f:facet name="header" style="font-weight:bold text-align:center;">Details</f:facet>
+    				#{n.details}
+			  </h:column>
+			  <h:column rendered="#{!empty serviceJSFBean.serviceHistoric}">
+			    	<f:facet name="header">
+			    		 <h:outputText value="Time" />
+					</f:facet>
+    				#{n.timeString}
+			  </h:column>
+			  
+			 
+		</h:dataTable>	  
+		
+		   
+	</h:body>
+</html>

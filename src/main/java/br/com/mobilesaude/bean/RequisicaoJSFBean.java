@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 
 import javax.faces.application.Application;
@@ -15,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
 
 import br.com.mobilesaude.clients.CRequisicao;
@@ -39,9 +41,11 @@ public class RequisicaoJSFBean {
 	
 	List<Requisicao> lastHour = new ArrayList<Requisicao>();
 	
-	List<Status_History> status;
+	List<Status_History> status = new ArrayList<Status_History>();
 	
-	
+	List<Requisicao> serviceHistoric = new ArrayList<Requisicao>();
+	long serviceId = 7;
+	String servicedate = "2017/04/06";
 	
 	int qtdDias = 11;
 	
@@ -49,42 +53,50 @@ public class RequisicaoJSFBean {
 	
 	int qtdServices; 
 	
+	int parametrourl;
+	
 	public RequisicaoJSFBean(){
+		
+		setLists();
+		setDias( qtdDias  );
+		qtdServices = services.size();
+		
+		getDays();
+		setServicesInRequests();
+		setServicesInAlert();
+		
+	}
+	
+	public void setUrlParameter(){
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
+		String projectId = paramMap.get("parametrourl");
+		parametrourl = Integer.parseInt( projectId ); 
+		System.out.println(">>>>>>>>>> parametrourl  >>>>>>>  "+parametrourl);
+		
+	}
+	
+	public void setLists(){
+		
 		CRequisicao ch = new CRequisicao();
 		CService cs = new CService();
-		
-		Calendar d = Calendar.getInstance();
-		for( int i=0; i<qtdDias; i++ ){
-			d.add(Calendar.DATE, -1);
-			dias[i] =  dataToStringBR(d);
-		}
 		
 		try {
 			allHistorics = ch.getList();
 			services = cs.getlist();
-			
-			qtdServices = services.size();
-			status = new ArrayList<Status_History>();
-			
-			//obter o status de cada service de no periodo de qtdDias
-			for( int i=0; i<qtdServices; i++ ){
-				Status_History s = new Status_History( services.get(i).getId() , qtdDias );
-				//System.out.println("dia >>>>>>>> "+s.getDia());
-				
-				status.add( s );
-			}
-			
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		for( Requisicao h : allHistorics ){
-			Service s = new Service();
-			s = findService( h.getIdService(), services );
-			h.setService(  s  );
-			//System.out.println( "  GEEEEEEEEETTT  "+h.getImg() +"  "+h.getTime());
+		allHistorics.sort(null);
+		for( int i=0; i<services.size(); i++ ){
+			lastHistorics.add( allHistorics.get( i ) );
 		}
+	}
+	
+	public void setServicesInAlert(){
 		
 		for(Service s : services){
 			if( s.isAlert()==true ){
@@ -93,13 +105,56 @@ public class RequisicaoJSFBean {
 			
 		}
 		
-		allHistorics.sort(null);
+	}
+	
+	public void setServicesInRequests(){
 		
-		for( int i=0; i<services.size(); i++ ){
-			lastHistorics.add( allHistorics.get( i ) );
+		for( Requisicao h : allHistorics ){ 
+			Service s = new Service();
+			s = findService( h.getIdService(), services );
+			h.setService(  s  );
 		}
 		
 	}
+	
+	public void setServiceHistoric(long serviceId, String day){
+		
+		CRequisicao ch = new CRequisicao();
+		try {
+			serviceHistoric = ch.getDay(serviceId+"", day );
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(serviceHistoric == null || serviceHistoric.size()==0){
+			serviceHistoric.add(new Requisicao());
+		}
+		
+		
+		
+	}
+	
+	//obter o status de cada service de no periodo de qtdDias
+	public void getDays(){
+		
+		for( int i=0; i<qtdServices; i++ ){
+			Status_History s = new Status_History( services.get(i).getId() , qtdDias );
+			
+			status.add( s );
+		}
+	}
+	
+	public void setDias( int qtdDias  ){
+		
+		Calendar d = Calendar.getInstance();
+		for( int i=0; i<qtdDias; i++ ){
+			d.add(Calendar.DATE, -1);
+			dias[i] =  dataToStringBR(d);
+		}
+		
+	}
+	
 	
 	public String dataToString2(Calendar c){
 		DateFormat df = new SimpleDateFormat("hh:mm:ss");
@@ -220,6 +275,42 @@ public class RequisicaoJSFBean {
 
 	public void setQtdServices(int qtdServices) {
 		this.qtdServices = qtdServices;
+	}
+
+	public List<Requisicao> getServiceHistoric() {
+		return serviceHistoric;
+	}
+
+	public void setServiceHistoric(List<Requisicao> serviceHistoric) {
+		this.serviceHistoric = serviceHistoric;
+	}
+
+	public long getServiceId() {
+		return serviceId;
+	}
+
+	public void setServiceId(long serviceId) {
+		this.serviceId = serviceId;
+	}
+
+	public String getServicedate() {
+		return servicedate;
+	}
+
+	public void setServicedate(String servicedate) {
+		this.servicedate = servicedate;
+	}
+
+
+
+	public int getParametrourl() {
+		return parametrourl;
+	}
+
+
+
+	public void setParametrourl(int parametrourl) {
+		this.parametrourl = parametrourl;
 	}
 	
 }

@@ -49,7 +49,7 @@ public class Status_History {
 		try {
 			services = cs.getlist();
 			service = findService( id, services );
-			System.out.println(">>>>>>>>>>> "+service.getName());
+			//System.out.println(">>>>>>>>>>> "+service.getName());
 		} catch (JAXBException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
