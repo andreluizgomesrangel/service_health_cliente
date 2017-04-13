@@ -4,14 +4,17 @@
       xmlns:f="http://java.sun.com/jsf/core">
       <h:head>
       	<h:title value="HISTORICO DE REQUISICOES"/>
-      	<script type="text/javascript">
-  		setTimeout(function () { location.reload(true); }, 30000);
-		</script>
       </h:head>
 	<h:body>
 		  
+		  <h:outputLink value="services.xhtml">
+				<h:outputText value = "SERVICES" />
+			</h:outputLink>
+		  
+		  <br />
+		  <br />
+		  
 		  <h:outputText value="#{serviceJSFBean.id} #{serviceJSFBean.date}" />
-		  		
 		 <br />
 		 <h:dataTable var="n" value="#{serviceJSFBean.serviceHistoric}" 
 		 				border="1"

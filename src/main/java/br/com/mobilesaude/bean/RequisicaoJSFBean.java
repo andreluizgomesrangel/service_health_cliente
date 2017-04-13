@@ -35,6 +35,24 @@ public class RequisicaoJSFBean {
 	List<Requisicao> lastHistorics = new ArrayList<Requisicao>();
 	
 	List<Requisicao> allHistorics = new ArrayList<Requisicao>();
+	public String[] getDiasUS() {
+		return diasUS;
+	}
+
+	public void setDiasUS(String[] diasUS) {
+		this.diasUS = diasUS;
+	}
+
+	public String[][] getUrlParam() {
+		return urlParam;
+	}
+
+	public void setUrlParam(String[][] urlParam) {
+		this.urlParam = urlParam;
+	}
+
+
+
 	List<Service> services = new ArrayList<Service>();
 	
 	List<Service> problems = new ArrayList<Service>();
@@ -50,6 +68,9 @@ public class RequisicaoJSFBean {
 	int qtdDias = 11;
 	
 	String []dias = new String[qtdDias];
+	String []diasUS = new String[qtdDias];
+	
+	String [][]urlParam;
 	
 	int qtdServices; 
 	
@@ -57,8 +78,8 @@ public class RequisicaoJSFBean {
 	
 	public RequisicaoJSFBean(){
 		
-		setLists();
 		setDias( qtdDias  );
+		setLists();
 		qtdServices = services.size();
 		
 		getDays();
@@ -90,10 +111,21 @@ public class RequisicaoJSFBean {
 			e.printStackTrace();
 		}
 		
+		
+		
 		allHistorics.sort(null);
 		for( int i=0; i<services.size(); i++ ){
 			lastHistorics.add( allHistorics.get( i ) );
 		}
+		
+		urlParam = new String[qtdDias][services.size()];
+		for(int i=0; i<services.size(); i++){
+			for( int j=0; j<qtdDias; j++ ){
+				urlParam[j][i] = dataToString(diasUS[j], services.get(i).getId());
+				System.out.print(" "+urlParam[j][i]);
+			}System.out.println();
+		}
+		
 	}
 	
 	public void setServicesInAlert(){
@@ -131,8 +163,6 @@ public class RequisicaoJSFBean {
 			serviceHistoric.add(new Requisicao());
 		}
 		
-		
-		
 	}
 	
 	//obter o status de cada service de no periodo de qtdDias
@@ -150,11 +180,23 @@ public class RequisicaoJSFBean {
 		Calendar d = Calendar.getInstance();
 		for( int i=0; i<qtdDias; i++ ){
 			d.add(Calendar.DATE, -1);
-			dias[i] =  dataToStringBR(d);
+			dias[i] 	=  dataToStringBR(d);
+			diasUS[i]   =  dataToString(d);
 		}
 		
 	}
 	
+	
+	
+	public String dataToString( String c, long id ){
+		return "serviceday.xhtml?id="+id+"&date="+c;
+	}
+	
+	public String dataToString( Calendar c, long id ){
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		String reportDate = df.format(c.getTime());
+		return "serviceday.xhtml?id="+id+"&date="+reportDate;
+	}
 	
 	public String dataToString2(Calendar c){
 		DateFormat df = new SimpleDateFormat("hh:mm:ss");
