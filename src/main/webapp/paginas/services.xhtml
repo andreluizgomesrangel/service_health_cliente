@@ -157,7 +157,16 @@
 				<img src="#{n.img[10]}" />
 			</h:outputLink>
 		</h:column>
-		
+		<h:column rendered="#{!empty requisicaoJSFBean.status}">
+			<f:facet name="header">
+				<h:outputText value="#{requisicaoJSFBean.dias[11]}" />
+			</f:facet>
+			<h:outputLink value="serviceday.xhtml">
+				<f:param name="id" value="#{n.id}" />
+				<f:param name="date" value="#{requisicaoJSFBean.diasUS[11]}" />
+				<img src="#{n.img[11]}" />
+			</h:outputLink>
+		</h:column>
 	</h:dataTable>
 
 </h:body>

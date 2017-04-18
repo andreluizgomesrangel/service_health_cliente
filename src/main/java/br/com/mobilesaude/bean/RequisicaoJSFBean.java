@@ -65,7 +65,7 @@ public class RequisicaoJSFBean {
 	long serviceId = 7;
 	String servicedate = "2017/04/06";
 	
-	int qtdDias = 11;
+	int qtdDias = 12;
 	
 	String []dias = new String[qtdDias];
 	String []diasUS = new String[qtdDias];
@@ -179,9 +179,11 @@ public class RequisicaoJSFBean {
 		
 		Calendar d = Calendar.getInstance();
 		for( int i=0; i<qtdDias; i++ ){
-			d.add(Calendar.DATE, -1);
+			
 			dias[i] 	=  dataToStringBR(d);
 			diasUS[i]   =  dataToString(d);
+			d.add(Calendar.DATE, -1);
+			
 		}
 		
 	}
