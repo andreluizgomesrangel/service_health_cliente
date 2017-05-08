@@ -33,8 +33,8 @@ public class RequisicaoJSFBean {
 	
 	List<Requisicao> newHistorics = new ArrayList<Requisicao>();
 	List<Requisicao> lastHistorics = new ArrayList<Requisicao>();
-	
 	List<Requisicao> allHistorics = new ArrayList<Requisicao>();
+	
 	public String[] getDiasUS() {
 		return diasUS;
 	}
@@ -80,11 +80,10 @@ public class RequisicaoJSFBean {
 		
 		setDias( qtdDias  );
 		setLists();
-		qtdServices = services.size();
-		
+		/*qtdServices = services.size();
 		getDays();
-		setServicesInRequests();
-		setServicesInAlert();
+		setServicesInRequests();*/
+		//setServicesInAlert();
 		
 	}
 	
@@ -105,7 +104,7 @@ public class RequisicaoJSFBean {
 		
 		try {
 			allHistorics = ch.getList();
-			services = cs.getlist();
+			services = cs.getlistById();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,7 +143,6 @@ public class RequisicaoJSFBean {
 		for( Requisicao h : allHistorics ){ 
 			Service s = new Service();
 			s = findService( h.getIdService(), services );
-			h.setService(  s  );
 		}
 		
 	}

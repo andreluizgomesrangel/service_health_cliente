@@ -18,6 +18,40 @@ import okhttp3.Response;
 
 public class CService {
 
+	
+	public List<Service> getlistById() throws JAXBException{
+		OkHttpClient client = new OkHttpClient();
+	
+		RequestBody formBody = new FormBody.Builder()
+		        .build();
+		Request request = new Request.Builder()
+		        .url("http://localhost:8080/Service_Health/ws/servico/service/getlistById")
+		        .get()
+		        .build();
+	
+		try {
+		    Response response = client.newCall(request).execute();
+		    
+		   // System.out.println(response.code());
+		    
+		    String xmlString = new String(response.body().string());
+		    JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);
+		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+		    StringReader reader = new StringReader( xmlString );
+		    Services services = (Services) unmarshaller.unmarshal(reader);
+		    
+		    return services.getServices();
+		    
+		    // Do something with the response.
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		return null;
+	}
+	
+
+	
+	
 	public int insert(String name, String url, String resp) throws JAXBException{
 		OkHttpClient client = new OkHttpClient();
 	
@@ -82,34 +116,4 @@ public class CService {
 		}
 	}
 	
-	public List<Service> getlist() throws JAXBException{
-		OkHttpClient client = new OkHttpClient();
-	
-		RequestBody formBody = new FormBody.Builder()
-		        .build();
-		Request request = new Request.Builder()
-		        .url("http://localhost:8080/Service_Health/ws/servico/service/getlist")
-		        .get()
-		        .build();
-	
-		try {
-		    Response response = client.newCall(request).execute();
-		    
-		   // System.out.println(response.code());
-		    
-		    String xmlString = new String(response.body().string());
-		    JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);
-		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-		    StringReader reader = new StringReader( xmlString );
-		    Services services = (Services) unmarshaller.unmarshal(reader);
-		    
-		    return services.getServices();
-		    
-		    // Do something with the response.
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		return null;
-	}
-	
-}
+}	

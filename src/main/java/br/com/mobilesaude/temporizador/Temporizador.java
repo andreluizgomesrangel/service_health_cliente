@@ -15,10 +15,11 @@ public class Temporizador{
 	public void doWork() {
 
 	//System.out.println(this.getClass().getSimpleName() + " working…");
-	CRequisicao ch = new CRequisicao();
+	CRequisicao cr = new CRequisicao();
 	CService cs = new CService();
 	try {
-		ch.allRequests(cs.getlist());
+		//System.out.println();
+		cr.allRequests(cs.getlistById());
 	} catch (JAXBException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

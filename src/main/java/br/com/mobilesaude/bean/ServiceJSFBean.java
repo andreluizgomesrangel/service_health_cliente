@@ -43,13 +43,14 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 		
 		try {
 			allHistorics = ch.getList();
-			services = cs.getlist();
+			services = cs.getlistById();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		allHistorics.sort(null);
+		
 		for( int i=0; i<services.size(); i++ ){
 			lastHistorics.add( allHistorics.get( i ) );
 		}

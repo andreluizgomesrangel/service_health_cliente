@@ -47,7 +47,7 @@ public class Status_History {
 		
 		List<Service> services = new ArrayList<Service>();
 		try {
-			services = cs.getlist();
+			services = cs.getlistById();
 			service = findService( id, services );
 			//System.out.println(">>>>>>>>>>> "+service.getName());
 		} catch (JAXBException e1) {

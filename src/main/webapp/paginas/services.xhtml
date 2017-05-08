@@ -12,162 +12,33 @@
 <h:body>
 
 	<br />
-	<h:dataTable var="n" value="#{requisicaoJSFBean.lastHistorics}"
+	<h:dataTable var="n" value="#{bean.lastRequests}"
 		id="demo-table" border="1" cellpadding="3" cellspacing="1"
 		rules="rows" frame="box"
-		rendered="#{!empty requisicaoJSFBean.lastHistorics}"
+		rendered="#{!empty bean.lastRequests}"
 		style="valign:middle; font-size:17; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
 		width="55%">
 
-		<h:column rendered="#{!empty requisicaoJSFBean.lastHistorics}">
-			<f:facet name="header" style="font-weight:bold text-align:left;">Remaining Services</f:facet>
+		<h:column rendered="#{!empty bean.lastRequests}">
+			<f:facet name="header" style="font-weight:bold text-align:left;">Service</f:facet>
 			<img src="#{n.img}"></img>
-    				    #{n.service.name}
-			  </h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.lastHistorics}">
-			<f:facet name="header" style="font-weight:bold text-align:left;">Details</f:facet>
-    				#{n.details}
-			  </h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.lastHistorics}">
-			<f:facet name="header">Time</f:facet>
-    				#{n.timeString}
-			  </h:column>
+    				    #{n.nome}
+		</h:column>
+		<h:column rendered="#{!empty bean.lastRequests}">
+			<f:facet name="header" style="font-weight:bold text-align:left;">Response</f:facet>
+    				    #{n.resposta}
+		</h:column>
+		<h:column rendered="#{!empty bean.lastRequests}">
+			<f:facet name="header" style="font-weight:bold text-align:left;">Time</f:facet>
+    				    #{n.hora}
+		</h:column>
+		
 
 	</h:dataTable>
 
 	<br />
 
-	<h:dataTable var="n" value="#{requisicaoJSFBean.status}"
-		id="demo-table" border="1" cellpadding="3" cellspacing="1" frame="box">
-
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="Service" />
-			</f:facet>
-    				#{n.service.name}
-			</h:column>
-
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[0]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[0]}" />
-				<img src="#{n.img[0]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[1]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[1]}" />
-				<img src="#{n.img[1]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[2]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[2]}" />
-				<img src="#{n.img[2]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[3]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[3]}" />
-				<img src="#{n.img[3]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[4]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[4]}" />
-				<img src="#{n.img[4]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[5]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[5]}" />
-				<img src="#{n.img[5]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[6]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[6]}" />
-				<img src="#{n.img[6]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[7]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[7]}" />
-				<img src="#{n.img[7]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[8]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[8]}" />
-				<img src="#{n.img[8]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[9]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[9]}" />
-				<img src="#{n.img[9]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[10]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[10]}" />
-				<img src="#{n.img[10]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[11]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[11]}" />
-				<img src="#{n.img[11]}" />
-			</h:outputLink>
-		</h:column>
-	</h:dataTable>
+	
 
 </h:body>
 </html>

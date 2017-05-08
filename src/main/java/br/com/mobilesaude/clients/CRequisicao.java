@@ -12,8 +12,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import br.com.mobilesaude.listas.LastRequests;
 import br.com.mobilesaude.listas.Requisicoes;
 import br.com.mobilesaude.listas.Services;
+import br.com.mobilesaude.resource.LastRequest;
 import br.com.mobilesaude.resource.Requisicao;
 import br.com.mobilesaude.resource.Service;
 import okhttp3.FormBody;
@@ -75,22 +77,12 @@ public class CRequisicao {
 		Requisicoes historics = null;
 		try {
 		    Response response = client.newCall(request).execute();
-		    
 		    code = response.code();
-		    
 		    String xmlString = new String(response.body().string());
-		    
-		   // System.out.println(xmlString);
 		    JAXBContext jaxbContext = JAXBContext.newInstance(Requisicoes.class);
 		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		    StringReader reader = new StringReader( xmlString );
-		    
-		   
-		    
 		    historics = (Requisicoes) unmarshaller.unmarshal(reader);
-		    
-		    //System.out.println(historics.getHitorics().size());
-		    
 		    return historics.getHitorics();
 		    
 		    // Do something with the response.
@@ -99,6 +91,37 @@ public class CRequisicao {
 		}
 		return historics.getHitorics();
 	}
+	
+	
+	public List<LastRequest> getLastOnes() throws JAXBException{
+		OkHttpClient client = new OkHttpClient();
+	
+		int code = 0;
+		
+		RequestBody formBody = new FormBody.Builder()
+		        .build();
+		Request request = new Request.Builder()
+		        .url("http://localhost:8080/Service_Health/ws/servico/requisicao/getLastOnes")
+		        .get()
+		        .build();
+		LastRequests lasts = null;
+		try {
+		    Response response = client.newCall(request).execute();
+		    code = response.code();
+		    String xmlString = new String(response.body().string());
+		    JAXBContext jaxbContext = JAXBContext.newInstance(LastRequests.class);
+		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+		    StringReader reader = new StringReader( xmlString );
+		    lasts = (LastRequests) unmarshaller.unmarshal(reader);
+		    return lasts.getLastRequest();
+		    
+		    // Do something with the response.
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		return lasts.getLastRequest();
+	}
+	
 	
 	public List<Requisicao> getDay( String id, String day) throws JAXBException{
 		OkHttpClient client = new OkHttpClient();
@@ -269,13 +292,13 @@ public int getRequest( Service s ){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		long lastRequest = list.get( list.size()-1 ).getRequisicao();
-		if(list==null || list.size()==0){
-			lastRequest = 0;
-		}
+		//long lastRequest = list.get( list.size()-1 ).getRequisicao();
+		//if(list==null || list.size()==0){
+		//	lastRequest = 0;
+		//}
 		
 		for( Service s : services ){
-			newHistoric( s, lastRequest+1 );
+			//newHistoric( s, lastRequest+1 );
 		}
 	}
 	

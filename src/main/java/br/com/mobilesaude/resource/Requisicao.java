@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ManagedBean
 @ViewScoped
-public class Requisicao implements Comparable<Requisicao>{
+public class Requisicao{
 
 	private long id;
 	private long idService;
@@ -27,7 +27,6 @@ public class Requisicao implements Comparable<Requisicao>{
 	
 	long requisicao;
 	private String timeString;
-	private Service service;
 	
 	String img;
 	
@@ -110,33 +109,15 @@ public class Requisicao implements Comparable<Requisicao>{
 		
 		this.response = response;
 	}
-	public Service getService() {
-		return service;
-	}
-	public void setService(Service service) {
-		//service.setLastRequest(time);
-		//service.setImg(img);
-		if( response != 200 ){
-			service.addErro(requisicao);
-		}
-		this.service = service;
-	}
+	
 	public long getRequisicao() {
 		return requisicao;
 	}
 	public void setRequisicao(long requisicao) {
 		this.requisicao = requisicao;
 	}
-	@Override
-	public int compareTo(Requisicao o) {
-		// TODO Auto-generated method stub
-		if( this.id < o.id) return 1;
-		if( this.id > o.id ) return -1;
-		return 0;
-	}
+	
 	public String getTimeString() {
-		//System.out.println(time.getTime()+"   "+time.toGMTString()+"    "+time.toString() );
-		//return time.toString()+"";
 		this.timeString = dataToString( time );
 		return timeString;
 	}
