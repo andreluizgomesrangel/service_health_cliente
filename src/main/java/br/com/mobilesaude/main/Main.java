@@ -18,7 +18,7 @@ import br.com.mobilesaude.resource.Status_History;
 public class Main {
 // service health client
 	public static void main(String[] args) throws JAXBException {
-		
-		
+		CRequisicao cr = new CRequisicao();
+		cr.allRequests();
 	}
 }

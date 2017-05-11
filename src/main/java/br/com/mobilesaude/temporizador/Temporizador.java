@@ -14,16 +14,14 @@ public class Temporizador{
 	@Schedule(second = "*/60", minute = "*", hour = "*")
 	public void doWork() {
 
-	//System.out.println(this.getClass().getSimpleName() + " working…");
-	CRequisicao cr = new CRequisicao();
-	CService cs = new CService();
-	try {
+	
+	/*try {
 		//System.out.println();
-		cr.allRequests(cs.getlistById());
+		//cr.allRequests(cs.getlistById());
 	} catch (JAXBException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-	}
+	}*/
 	
 	
 	}

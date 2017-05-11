@@ -31,10 +31,6 @@ public class Bean {
 			e.printStackTrace();
 		}
 		
-		
-		for( LastRequest t : lastRequests )
-		System.out.println(t.getNome()+" "+t.getImg());
-		
 	}
 
 

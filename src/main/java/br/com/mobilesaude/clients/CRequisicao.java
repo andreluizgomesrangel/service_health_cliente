@@ -27,15 +27,13 @@ import okhttp3.Response;
 
 public class CRequisicao {
 
-	public int insert( String idService, String resp, String req ) throws JAXBException{
+	public int insert( String idService, String resp ) throws JAXBException{
 		OkHttpClient client = new OkHttpClient();
-	
 		int code = 0;
 		
 		RequestBody formBody = new FormBody.Builder()
 		        .add("idService", idService)
 		        .add("response", resp)
-		        .add("request", req)
 		        .build();
 		Request request = new Request.Builder()
 		        .url("http://localhost:8080/Service_Health/ws/servico/requisicao/insert")
@@ -47,13 +45,15 @@ public class CRequisicao {
 		    code = response.code();
 		    
 		    String xmlString = new String(response.body().string());
-		    JAXBContext jaxbContext = JAXBContext.newInstance(Requisicoes.class);
+		    //JAXBContext jaxbContext = JAXBContext.newInstance(Requisicoes.class);
+		    JAXBContext jaxbContext = JAXBContext.newInstance(Requisicao.class);
 		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		    StringReader reader = new StringReader( xmlString );
 		    
-		    Requisicoes historics = (Requisicoes) unmarshaller.unmarshal(reader);
 		    
-		    
+		    //Requisicoes historics = (Requisicoes) unmarshaller.unmarshal(reader);
+		    Requisicao historics = (Requisicao) unmarshaller.unmarshal(reader);
+		    //System.out.println(code);
 		    return code;
 		    
 		    // Do something with the response.
@@ -179,10 +179,8 @@ public class CRequisicao {
 		for ( Map.Entry<String, String> entry : param.entrySet() ) {
 		    builder.add( entry.getKey(), entry.getValue() );
 		}
-		
 		RequestBody formBody = builder.build();
-		
-		//System.out.print( "  waiting..." );
+		//System.out.print( " post waiting..." );
 		Request request = new Request.Builder()
 		        .url( s.getUrl() )
 		        .post(formBody)
@@ -214,12 +212,11 @@ public int getRequest( Service s ){
 		
 		FormBody.Builder builder = new FormBody.Builder();	
 		
-		//System.out.print( "  waiting..." );
+		//System.out.print( " get  waiting..." );
 		Request request = new Request.Builder()
 		        .url( s.getUrl() )
 		        .get()
 		        .build();
-		
 		try {
 			
 			Response response = client.newCall(request).execute();
@@ -249,12 +246,15 @@ public int getRequest( Service s ){
 		return p;
 	}
 	
+	//Metodo responsavel por fazer uma requisicao
 	public int request( Service s ){
 		
 		if( s.getRequestType().equals("post") ){
+			//System.out.println("post");
 			return postRequest( s );
 		}
 		if( s.getRequestType().equals("get") ){
+			//System.out.println("get");
 			return getRequest( s );
 		}
 		//997412385 Laryssa
@@ -263,7 +263,9 @@ public int getRequest( Service s ){
 	
 	}
 	
-	public Requisicao newHistoric( Service s, long l ){
+	
+	//faz uma requisicao e insere ela no bd
+	public Requisicao newRequest( Service s ){
 		
 		int response = request( s );
 		
@@ -274,7 +276,7 @@ public int getRequest( Service s ){
 		h.setIdService( s.getId() );
 		
 		try {
-			insert( s.getId()+"", response+"", l+"");
+			insert( s.getId()+"", response+"");
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -283,22 +285,20 @@ public int getRequest( Service s ){
 		return h;
 	}
 	
-	public void allRequests( List<Service> services){
+	public void allRequests( ){
 		
-		List<Requisicao> list = null;
+		CService cs = new CService();
+		
+		List<Service> services = null;
 		try {
-			list = getList();
+			services = cs.getlistById();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//long lastRequest = list.get( list.size()-1 ).getRequisicao();
-		//if(list==null || list.size()==0){
-		//	lastRequest = 0;
-		//}
 		
-		for( Service s : services ){
-			//newHistoric( s, lastRequest+1 );
+		for( Service x : services ){
+			newRequest(x);
 		}
 	}
 	
