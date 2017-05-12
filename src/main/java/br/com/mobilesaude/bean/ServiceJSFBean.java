@@ -31,9 +31,10 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 		setLists();
 		setDias( 12  );
 		setUrlParameter();
-		setServiceHistoric(id,date );
+		setServiceHistoric( id , date );
 		
-		serviceHistoric.sort(null);
+		System.out.println(id);
+		
 	}
 	
 	public void setLists(){
@@ -49,8 +50,6 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 			e.printStackTrace();
 		}
 		
-		allHistorics.sort(null);
-		
 		for( int i=0; i<services.size(); i++ ){
 			lastHistorics.add( allHistorics.get( i ) );
 		}
@@ -65,7 +64,6 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 		date = paramMap.get("date");
 		
 	}
-
 	
 	public List<Requisicao> getAllHistorics() {
 		return allHistorics;

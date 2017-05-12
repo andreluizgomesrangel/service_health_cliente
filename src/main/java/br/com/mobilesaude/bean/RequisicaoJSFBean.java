@@ -28,12 +28,32 @@ import br.com.mobilesaude.resource.Status_History;
 @ManagedBean
 @ViewScoped
 public class RequisicaoJSFBean {
-
-	
 	
 	List<Requisicao> newHistorics = new ArrayList<Requisicao>();
 	List<Requisicao> lastHistorics = new ArrayList<Requisicao>();
 	List<Requisicao> allHistorics = new ArrayList<Requisicao>();
+	List<Service> services = new ArrayList<Service>();
+	List<Service> problems = new ArrayList<Service>();
+	List<Requisicao> lastHour = new ArrayList<Requisicao>();
+	List<Status_History> status = new ArrayList<Status_History>();
+	List<Requisicao> serviceHistoric = new ArrayList<Requisicao>();
+	long serviceId = 7;
+	int qtdDias = 12;
+	String []dias = new String[qtdDias];
+	String []diasUS = new String[qtdDias];
+	String [][]urlParam;
+	int qtdServices; 
+	int parametrourl;
+	
+	public RequisicaoJSFBean(){
+		
+		setDias( qtdDias  ); // ( v ) 
+		setLists();
+		qtdServices = services.size();
+		getDays();
+		setServicesInRequests();
+		setServicesInAlert();
+	}
 	
 	public String[] getDiasUS() {
 		return diasUS;
@@ -51,41 +71,6 @@ public class RequisicaoJSFBean {
 		this.urlParam = urlParam;
 	}
 
-
-
-	List<Service> services = new ArrayList<Service>();
-	
-	List<Service> problems = new ArrayList<Service>();
-	
-	List<Requisicao> lastHour = new ArrayList<Requisicao>();
-	
-	List<Status_History> status = new ArrayList<Status_History>();
-	
-	List<Requisicao> serviceHistoric = new ArrayList<Requisicao>();
-	long serviceId = 7;
-	String servicedate = "2017/04/06";
-	
-	int qtdDias = 12;
-	
-	String []dias = new String[qtdDias];
-	String []diasUS = new String[qtdDias];
-	
-	String [][]urlParam;
-	
-	int qtdServices; 
-	
-	int parametrourl;
-	
-	public RequisicaoJSFBean(){
-		
-		setDias( qtdDias  );
-		setLists();
-		/*qtdServices = services.size();
-		getDays();
-		setServicesInRequests();*/
-		//setServicesInAlert();
-		
-	}
 	
 	public void setUrlParameter(){
 		
@@ -110,19 +95,18 @@ public class RequisicaoJSFBean {
 			e.printStackTrace();
 		}
 		
-		
-		
-		allHistorics.sort(null);
-		for( int i=0; i<services.size(); i++ ){
-			lastHistorics.add( allHistorics.get( i ) );
-		}
-		
-		urlParam = new String[qtdDias][services.size()];
-		for(int i=0; i<services.size(); i++){
-			for( int j=0; j<qtdDias; j++ ){
-				urlParam[j][i] = dataToString(diasUS[j], services.get(i).getId());
-				System.out.print(" "+urlParam[j][i]);
-			}System.out.println();
+		if(services.size()!=0){
+			for( int i=0; i<services.size(); i++ ){
+				lastHistorics.add( allHistorics.get( i ) );
+			}
+			
+			urlParam = new String[qtdDias][services.size()];
+			for(int i=0; i<services.size(); i++){
+				for( int j=0; j<qtdDias; j++ ){
+					urlParam[j][i] = dataToString(diasUS[j], services.get(i).getId());
+					System.out.print(" "+urlParam[j][i]);
+				}System.out.println();
+			}
 		}
 		
 	}
@@ -157,9 +141,10 @@ public class RequisicaoJSFBean {
 			e.printStackTrace();
 		}
 		
-		if(serviceHistoric == null || serviceHistoric.size()==0){
+		/*if(serviceHistoric == null || serviceHistoric.size()==0){
+			System.out.println(">>>>>NUUUUUULLLLLL");
 			serviceHistoric.add(new Requisicao());
-		}
+		}*/
 		
 	}
 	
@@ -185,8 +170,6 @@ public class RequisicaoJSFBean {
 		}
 		
 	}
-	
-	
 	
 	public String dataToString( String c, long id ){
 		return "serviceday.xhtml?id="+id+"&date="+c;
@@ -335,21 +318,9 @@ public class RequisicaoJSFBean {
 		this.serviceId = serviceId;
 	}
 
-	public String getServicedate() {
-		return servicedate;
-	}
-
-	public void setServicedate(String servicedate) {
-		this.servicedate = servicedate;
-	}
-
-
-
 	public int getParametrourl() {
 		return parametrourl;
 	}
-
-
 
 	public void setParametrourl(int parametrourl) {
 		this.parametrourl = parametrourl;

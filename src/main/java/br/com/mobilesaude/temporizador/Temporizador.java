@@ -14,15 +14,8 @@ public class Temporizador{
 	@Schedule(second = "*/60", minute = "*", hour = "*")
 	public void doWork() {
 
-	
-	/*try {
-		//System.out.println();
-		//cr.allRequests(cs.getlistById());
-	} catch (JAXBException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}*/
-	
+		CRequisicao cr = new CRequisicao();
+		cr.allRequests();
 	
 	}
 	

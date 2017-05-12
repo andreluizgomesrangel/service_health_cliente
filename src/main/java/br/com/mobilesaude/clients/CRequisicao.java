@@ -128,6 +128,7 @@ public class CRequisicao {
 	
 		int code = 0;
 		
+		System.out.println(day);
 		RequestBody formBody = new FormBody.Builder()
 		        .add("id", id)
 		        .add("day", day)

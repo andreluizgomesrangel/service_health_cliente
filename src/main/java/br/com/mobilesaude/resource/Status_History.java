@@ -24,6 +24,7 @@ import br.com.mobilesaude.clients.CService;
 @ViewScoped
 public class Status_History {
 
+	//status de 1 servico
 	Service service = new Service();
 	int []dia;
 	private Calendar today = Calendar.getInstance();
@@ -49,14 +50,9 @@ public class Status_History {
 		try {
 			services = cs.getlistById();
 			service = findService( id, services );
-			//System.out.println(">>>>>>>>>>> "+service.getName());
 		} catch (JAXBException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
-		
 	}
 	
 	Service findService( long id, List<Service> list ){
@@ -71,7 +67,6 @@ public class Status_History {
 	/*
 	 * Verificar getOneDay para o servico de id por n dias a partir de ontem
 	 */
-	
 	public void verifDias( long id, int n ){
 		
 		for(int i=0; i<n;i++){
@@ -89,7 +84,6 @@ public class Status_History {
 			if( v==0 ){
 				img[i]="info.gif";
 			}
-			//System.out.println("DIIIIIIAAAAA: "+today.getTime()+" >>>> "+v);
 		}
 	}
 	
