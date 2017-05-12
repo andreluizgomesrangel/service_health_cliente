@@ -38,12 +38,17 @@ public class RequisicaoJSFBean {
 	List<Status_History> status = new ArrayList<Status_History>();
 	List<Requisicao> serviceHistoric = new ArrayList<Requisicao>();
 	long serviceId = 7;
-	int qtdDias = 12;
+	int qtdDias = 10;
 	String []dias = new String[qtdDias];
 	String []diasUS = new String[qtdDias];
 	String [][]urlParam;
 	int qtdServices; 
 	int parametrourl;
+	
+	private int offset = 0;
+	private Calendar today = Calendar.getInstance();
+	private String hoje = new String(dataToString(today));
+	private String url = new String("services.xhtml?data="+hoje);
 	
 	public RequisicaoJSFBean(){
 		
@@ -53,6 +58,14 @@ public class RequisicaoJSFBean {
 		getDays();
 		setServicesInRequests();
 		setServicesInAlert();
+	}
+	
+	public void addOffset(){
+		System.out.println("add<<<<<<<");
+		offset+=10;
+	}
+	public void asubOffset(){
+		offset-=10;
 	}
 	
 	public String[] getDiasUS() {
@@ -152,7 +165,7 @@ public class RequisicaoJSFBean {
 	public void getDays(){
 		
 		for( int i=0; i<qtdServices; i++ ){
-			Status_History s = new Status_History( services.get(i).getId() , qtdDias );
+			Status_History s = new Status_History( services.get(i).getId() , qtdDias, offset );
 			
 			status.add( s );
 		}
@@ -324,6 +337,38 @@ public class RequisicaoJSFBean {
 
 	public void setParametrourl(int parametrourl) {
 		this.parametrourl = parametrourl;
+	}
+
+	public Calendar getToday() {
+		return today;
+	}
+
+	public void setToday(Calendar today) {
+		this.today = today;
+	}
+
+	public String getHoje() {
+		return hoje;
+	}
+
+	public void setHoje(String hoje) {
+		this.hoje = hoje;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 	
 }

@@ -49,7 +49,7 @@
 			<f:facet name="header">
 				<h:outputText value="#{requisicaoJSFBean.dias[0]}" />
 			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
+			<h:outputLink value="serviceday.xhtml" >
 				<f:param name="id" value="#{n.id}" />
 				<f:param name="date" value="#{requisicaoJSFBean.diasUS[0]}" />
 				<img src="#{n.img[0]}" />
@@ -145,30 +145,24 @@
 				<img src="#{n.img[9]}" />
 			</h:outputLink>
 		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[10]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[10]}" />
-				<img src="#{n.img[10]}" />
-			</h:outputLink>
-		</h:column>
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="#{requisicaoJSFBean.dias[11]}" />
-			</f:facet>
-			<h:outputLink value="serviceday.xhtml">
-				<f:param name="id" value="#{n.id}" />
-				<f:param name="date" value="#{requisicaoJSFBean.diasUS[11]}" />
-				<img src="#{n.img[11]}" />
-			</h:outputLink>
-		</h:column>
+		
+		
 	</h:dataTable>
 	
 	
+	
+	
+	<h:outputLink value="#{requisicaoJSFBean.url}" onclick="requisicaoJSFBean.addOffset">
+				<h:outputText value = "adiantar dias  " />
+	</h:outputLink>
+	
+	
+	<h:outputLink value="#{requisicaoJSFBean.url}">
+				
+				<h:outputText value = "    voltar dias" />
+	</h:outputLink>
 
+<h:outputText value="#{requisicaoJSFBean.offset}" />
 	<br />
 
 	

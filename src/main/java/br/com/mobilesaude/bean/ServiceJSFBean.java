@@ -29,7 +29,7 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 	public ServiceJSFBean(){
 		
 		setLists();
-		setDias( 12  );
+		//setDias( 12  );
 		setUrlParameter();
 		setServiceHistoric( id , date );
 		

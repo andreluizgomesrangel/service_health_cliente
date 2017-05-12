@@ -34,12 +34,20 @@ public class Status_History {
 	
 	private String []img;
 	
+	private String hoje = dataToString(today);
+	private Calendar diaInicial = today;
+	
+	private String url = new String("services.xhtml?data="+hoje);
+	
 	public Status_History(){
 		
 	}
 	
 	
-	public Status_History( long id, int n ){
+	public Status_History( long id, int n, int offset ){
+		
+		System.out.println(hoje);
+		
 		this.id = id;
 		img = new String[n];
 		dia = new int[n];
@@ -70,8 +78,8 @@ public class Status_History {
 	public void verifDias( long id, int n ){
 		
 		for(int i=0; i<n;i++){
-			today.add(Calendar.DATE, -1);
-			String dayString = dataToString(today);
+			
+			String dayString = dataToString(diaInicial);
 			int v = getOneDay( id, dayString );
 			dia[i] = v;
 			img[i] = new String();
@@ -84,7 +92,20 @@ public class Status_History {
 			if( v==0 ){
 				img[i]="info.gif";
 			}
+			diaInicial.add(Calendar.DATE, -1);
 		}
+	}
+	
+	public void adiantar10Dias( long id, int n ){
+		if(diaInicial!=today){
+			diaInicial.add(Calendar.DATE, 10);
+			verifDias( id, n );
+		}
+	}
+	
+	public void voltar10Dias( long id, int n ){
+		diaInicial.add(Calendar.DATE, -10);
+		verifDias( id, n );
 	}
 	
 	public String dataToString(Calendar c){
@@ -177,6 +198,36 @@ public class Status_History {
 
 	public void setService(Service service) {
 		this.service = service;
+	}
+
+
+	public String getHoje() {
+		return hoje;
+	}
+
+
+	public void setHoje(String hoje) {
+		this.hoje = hoje;
+	}
+
+
+	public Calendar getDiaInicial() {
+		return diaInicial;
+	}
+
+
+	public void setDiaInicial(Calendar diaInicial) {
+		this.diaInicial = diaInicial;
+	}
+
+
+	public String getUrl() {
+		return url;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 
