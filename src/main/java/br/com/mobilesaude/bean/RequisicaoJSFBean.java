@@ -45,12 +45,24 @@ public class RequisicaoJSFBean {
 	int qtdServices; 
 	int parametrourl;
 	
-	private int offset = 0;
-	private Calendar today = Calendar.getInstance();
-	private String hoje = new String(dataToString(today));
-	private String url = new String("services.xhtml?data="+hoje);
+	
+	long id;
+	String inicio = new String();
+	private int offset;
+	private Calendar primeiroDia;
+	private String hoje = new String();
+	private String url = new String();
+	
+	
 	
 	public RequisicaoJSFBean(){
+		
+		offset = 0;
+		primeiroDia = Calendar.getInstance();
+		inicio = new String(dataToString(primeiroDia));
+		
+		setUrlParameter(); //obter offset a partir da url
+		setdiainicial(); //mudar dia inicial a partir do offset
 		
 		setDias( qtdDias  ); // ( v ) 
 		setLists();
@@ -58,7 +70,40 @@ public class RequisicaoJSFBean {
 		getDays();
 		setServicesInRequests();
 		setServicesInAlert();
+		
+		url = new String("primeiro dia: "+dataToString(primeiroDia)+" causado pelo offset na url services.xhtml?data="+offset);
 	}
+	
+	
+	public void setdiainicial(){
+		if(offset>0){
+			for(int i=0;i<offset; i++)
+			primeiroDia.add(Calendar.DATE, -1);
+		}
+		if(offset<0){
+			for(int i=offset;i>0; i--)
+			primeiroDia.add(Calendar.DATE, 1);
+		}
+	}
+	
+	public void setUrlParameter(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
+		String projectId = paramMap.get("inicio");
+		offset = Integer.parseInt( projectId );
+		//inicio = paramMap.get("inicio");
+		
+	}
+	
+	/*public void setUrlParameter(){
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
+		String projectId = paramMap.get("parametrourl");
+		parametrourl = Integer.parseInt( projectId ); 
+		System.out.println(">>>>>>>>>> parametrourl  >>>>>>>  "+parametrourl);
+		
+	}*/
 	
 	public void addOffset(){
 		System.out.println("add<<<<<<<");
@@ -83,17 +128,6 @@ public class RequisicaoJSFBean {
 	public void setUrlParam(String[][] urlParam) {
 		this.urlParam = urlParam;
 	}
-
-	
-	public void setUrlParameter(){
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
-		String projectId = paramMap.get("parametrourl");
-		parametrourl = Integer.parseInt( projectId ); 
-		System.out.println(">>>>>>>>>> parametrourl  >>>>>>>  "+parametrourl);
-		
-	}
 	
 	public void setLists(){
 		
@@ -117,8 +151,8 @@ public class RequisicaoJSFBean {
 			for(int i=0; i<services.size(); i++){
 				for( int j=0; j<qtdDias; j++ ){
 					urlParam[j][i] = dataToString(diasUS[j], services.get(i).getId());
-					System.out.print(" "+urlParam[j][i]);
-				}System.out.println();
+					//System.out.print(" "+urlParam[j][i]);
+				}//System.out.println();
 			}
 		}
 		
@@ -165,8 +199,7 @@ public class RequisicaoJSFBean {
 	public void getDays(){
 		
 		for( int i=0; i<qtdServices; i++ ){
-			Status_History s = new Status_History( services.get(i).getId() , qtdDias, offset );
-			
+			Status_History s = new Status_History( services.get(i).getId() , qtdDias, primeiroDia );
 			status.add( s );
 		}
 	}
@@ -175,11 +208,9 @@ public class RequisicaoJSFBean {
 		
 		Calendar d = Calendar.getInstance();
 		for( int i=0; i<qtdDias; i++ ){
-			
 			dias[i] 	=  dataToStringBR(d);
 			diasUS[i]   =  dataToString(d);
 			d.add(Calendar.DATE, -1);
-			
 		}
 		
 	}
@@ -339,13 +370,6 @@ public class RequisicaoJSFBean {
 		this.parametrourl = parametrourl;
 	}
 
-	public Calendar getToday() {
-		return today;
-	}
-
-	public void setToday(Calendar today) {
-		this.today = today;
-	}
 
 	public String getHoje() {
 		return hoje;
@@ -369,6 +393,32 @@ public class RequisicaoJSFBean {
 
 	public void setOffset(int offset) {
 		this.offset = offset;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getInicio() {
+		return inicio;
+	}
+
+	public void setInicio(String inicio) {
+		this.inicio = inicio;
+	}
+
+
+	public Calendar getPrimeiroDia() {
+		return primeiroDia;
+	}
+
+
+	public void setPrimeiroDia(Calendar primeiroDia) {
+		this.primeiroDia = primeiroDia;
 	}
 	
 }

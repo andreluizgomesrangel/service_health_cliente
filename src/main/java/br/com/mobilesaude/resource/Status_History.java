@@ -37,16 +37,18 @@ public class Status_History {
 	private String hoje = dataToString(today);
 	private Calendar diaInicial = today;
 	
-	private String url = new String("services.xhtml?data="+hoje);
+	private String url = new String();
 	
 	public Status_History(){
 		
 	}
 	
 	
-	public Status_History( long id, int n, int offset ){
+	public Status_History( long id, int n, Calendar primeiroDia ){
 		
-		System.out.println(hoje);
+		//this.diaInicial = primeiroDia;
+		System.out.println(">>>>>>>>>>>> primeiroDia  >>>>>>>>>>"+dataToString(primeiroDia));
+		System.out.println(">>>>>>>>>>>> dia inicial  >>>>>>>>>>"+dataToString(diaInicial));
 		
 		this.id = id;
 		img = new String[n];
@@ -61,6 +63,8 @@ public class Status_History {
 		} catch (JAXBException e1) {
 			e1.printStackTrace();
 		}
+		
+		url = new String("services.xhtml?data="+hoje);
 	}
 	
 	Service findService( long id, List<Service> list ){
@@ -73,13 +77,17 @@ public class Status_History {
 	}
 	
 	/*
-	 * Verificar getOneDay para o servico de id por n dias a partir de ontem
+	 * Verificar getOneDay para o servico de id por n dias a partir do diaInicial
 	 */
 	public void verifDias( long id, int n ){
 		
+		System.out.println(">>>>>>>>>>>> dia inicial 2 >>>>>>>>>>"+dataToString(diaInicial));
+		Calendar diax = diaInicial;
 		for(int i=0; i<n;i++){
 			
-			String dayString = dataToString(diaInicial);
+			String dayString = dataToString(diax);
+			System.out.println(">>>>>>>>>>>> dia x >>>>>>>>>>"+dataToString(diax));
+			
 			int v = getOneDay( id, dayString );
 			dia[i] = v;
 			img[i] = new String();
@@ -96,18 +104,7 @@ public class Status_History {
 		}
 	}
 	
-	public void adiantar10Dias( long id, int n ){
-		if(diaInicial!=today){
-			diaInicial.add(Calendar.DATE, 10);
-			verifDias( id, n );
-		}
-	}
-	
-	public void voltar10Dias( long id, int n ){
-		diaInicial.add(Calendar.DATE, -10);
-		verifDias( id, n );
-	}
-	
+
 	public String dataToString(Calendar c){
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		String reportDate = df.format(c.getTime());
