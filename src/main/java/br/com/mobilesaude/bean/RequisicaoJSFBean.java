@@ -49,11 +49,17 @@ public class RequisicaoJSFBean {
 	
 	long id;
 	String inicio = new String();
+	String proximo = new String();
+	String anterior = new String();
 	private int offset;
 	private Calendar primeiroDia;
+	private Calendar proximoDia;
+	private Calendar antDia;
+	
 	private String hoje = new String();
 	private String url = new String();
-	
+	private String urlProx = new String();
+	private String urlAnt = new String();
 	
 	
 	public RequisicaoJSFBean(){
@@ -73,6 +79,8 @@ public class RequisicaoJSFBean {
 		setServicesInAlert();
 		
 		url = new String("primeiro dia: "+inicio+" causado pelo offset na url services.xhtml?data="+offset);
+		urlProx = new String("prox dia: "+proximo+" causado pelo offset na url services.xhtml?data=10");
+		urlAnt = new String("anterior dia: "+anterior+" causado pelo offset na url services.xhtml?data=-10");
 	}
 	
 	
@@ -116,9 +124,42 @@ public class RequisicaoJSFBean {
 			}
 			System.out.println(">>>>> o inicio: "+dataToStringBR1( primeiroDia ));
 		}
-		
+		proximoDia = setProxDia( inicio, 10 );
+		proximo = dataToStringBR1(proximoDia);
+		System.out.println(">>>>>> proximo dia: "+proximo);
+		antDia = setProxDia( inicio, -10 );
+		anterior = dataToStringBR1(antDia);
+		System.out.println(">>>>>> proximo dia: "+anterior);
 		
 	}
+	
+	public Calendar setProxDia( String Inicial, int offset ){
+		
+		Calendar inicial = Calendar.getInstance();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			inicial.setTime(sdf.parse(Inicial));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(">>>>>  setando o proximo dia...");
+		if(offset>0){
+			for(int i=0;i<offset; i++)
+			inicial.add(Calendar.DATE, -1);
+		}
+		if(offset<0){
+			for(int i=offset;i<0; i++)
+			inicial.add(Calendar.DATE, 1);
+		}
+		
+		return inicial;
+		
+	}
+	
+	
 	
 	/*public void setUrlParameter(){
 		
@@ -444,6 +485,66 @@ public class RequisicaoJSFBean {
 
 	public void setPrimeiroDia(Calendar primeiroDia) {
 		this.primeiroDia = primeiroDia;
+	}
+
+
+	public String getProximo() {
+		return proximo;
+	}
+
+
+	public void setProximo(String proximo) {
+		this.proximo = proximo;
+	}
+
+
+	public Calendar getProximoDia() {
+		return proximoDia;
+	}
+
+
+	public void setProximoDia(Calendar proximoDia) {
+		this.proximoDia = proximoDia;
+	}
+
+
+	public String getUrlProx() {
+		return urlProx;
+	}
+
+
+	public void setUrlProx(String urlProx) {
+		this.urlProx = urlProx;
+	}
+
+
+	public Calendar getAntDia() {
+		return antDia;
+	}
+
+
+	public void setAntDia(Calendar antDia) {
+		this.antDia = antDia;
+	}
+
+
+	public String getUrlAnt() {
+		return urlAnt;
+	}
+
+
+	public void setUrlAnt(String urlAnt) {
+		this.urlAnt = urlAnt;
+	}
+
+
+	public String getAnterior() {
+		return anterior;
+	}
+
+
+	public void setAnterior(String anterior) {
+		this.anterior = anterior;
 	}
 	
 }

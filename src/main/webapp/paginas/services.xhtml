@@ -34,16 +34,22 @@
 		</h:column>
 	</h:dataTable>
 	
-	
-	
-	<h:dataTable var="n" value="#{requisicaoJSFBean.status}"
+	<table border="1" cellpadding="3" cellspacing="1" >
+  	<tr>
+	    <th>
+	    
+	    	<h:outputLink value="services.xhtml">
+		  		<f:param name="inicio" value="#{requisicaoJSFBean.anterior}" />
+				<h:outputText value = "#{requisicaoJSFBean.anterior}" />
+		  	</h:outputLink>
+	    
+	    </th>
+	    
+	    <th>
+	    
+	    	<h:dataTable var="n" value="#{requisicaoJSFBean.status}"
 		id="demo-table" border="1" cellpadding="3" cellspacing="1" frame="box">
-
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="Voltar" />
-			</f:facet>
-		</h:column>
+		
 		<h:column rendered="#{!empty requisicaoJSFBean.status}">
 			<f:facet name="header">
 				<h:outputText value="Service" />
@@ -151,17 +157,28 @@
 			</h:outputLink>
 		</h:column>
 		
-		<h:column rendered="#{!empty requisicaoJSFBean.status}">
-			<f:facet name="header">
-				<h:outputText value="Ir" />
-			</f:facet>
-		</h:column>
-		
 	</h:dataTable>
+	    
+	    </th>
+	    
+	    <th>
+	    
+	    	<h:outputLink value="services.xhtml">
+		  		<f:param name="inicio" value="#{requisicaoJSFBean.proximo}" />
+				<h:outputText value = "#{requisicaoJSFBean.proximo}" />
+		  	</h:outputLink>
+	    
+	    </th>
+  	</tr>
+	</table>
+
 
 	<h:outputText value="#{requisicaoJSFBean.url}" />
 	<br />
-
+	<h:outputText value="#{requisicaoJSFBean.urlProx}" />
+	<br />
+	<h:outputText value="#{requisicaoJSFBean.urlAnt}" />
+	<br />
 	
 
 </h:body>
