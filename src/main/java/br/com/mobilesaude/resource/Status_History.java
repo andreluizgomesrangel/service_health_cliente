@@ -1,6 +1,7 @@
 package br.com.mobilesaude.resource;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +38,7 @@ public class Status_History {
 	private String hoje = dataToString(today);
 	private Calendar diaInicial = today;
 	
+	private String primeiroDia;
 	private String url = new String();
 	
 	public Status_History(){
@@ -44,11 +46,17 @@ public class Status_History {
 	}
 	
 	
-	public Status_History( long id, int n, Calendar primeiroDia ){
+	public Status_History( long id, int n, String primeiroDia ){
+		this.primeiroDia = primeiroDia;
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> >>>>>>>>>>> primeiro dia:"+primeiroDia);
 		
-		//this.diaInicial = primeiroDia;
-		System.out.println(">>>>>>>>>>>> primeiroDia  >>>>>>>>>>"+dataToString(primeiroDia));
-		System.out.println(">>>>>>>>>>>> dia inicial  >>>>>>>>>>"+dataToString(diaInicial));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			this.diaInicial.setTime(sdf.parse(primeiroDia));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.id = id;
 		img = new String[n];
@@ -81,12 +89,24 @@ public class Status_History {
 	 */
 	public void verifDias( long id, int n ){
 		
-		System.out.println(">>>>>>>>>>>> dia inicial 2 >>>>>>>>>>"+dataToString(diaInicial));
-		Calendar diax = diaInicial;
+		System.out.println(">>>>>>>>>>>>>>>>>> dia inicial 2 >>>>>>>>>>>>>>"+primeiroDia);
+		System.out.println(">>>>>>>>>>>>>>>>>> primeiro dia 2 >>>>>>>>>>>>>>"+dataToStringBR1(diaInicial));
+		Calendar diax = Calendar.getInstance();
+				
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			diax.setTime(sdf.parse(primeiroDia));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		//diax = diaInicial.getInstance();
+		
 		for(int i=0; i<n;i++){
 			
 			String dayString = dataToString(diax);
-			System.out.println(">>>>>>>>>>>> dia x >>>>>>>>>>"+dataToString(diax));
+			System.out.println(">>>>>>>>>>>> dia x >>>>>>>>>>"+dataToStringBR1(diax));
 			
 			int v = getOneDay( id, dayString );
 			dia[i] = v;
@@ -100,11 +120,25 @@ public class Status_History {
 			if( v==0 ){
 				img[i]="info.gif";
 			}
-			diaInicial.add(Calendar.DATE, -1);
+			diax.add(Calendar.DATE, -1);
 		}
+		System.out.println(">>>>>>>>>>>>>>>>>> dia inicial 3 >>>>>>>>>>>>>>"+primeiroDia);
+		System.out.println(">>>>>>>>>>>>>>>>>> primeiro dia 3 >>>>>>>>>>>>>>"+dataToStringBR1(diaInicial));
 	}
 	
-
+	public String dataToStringBR1(Calendar c){
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		String reportDate = df.format(c.getTime());
+		return reportDate;
+	}
+	
+	public String dataToStringBR2(Calendar c){
+		DateFormat df = new SimpleDateFormat("dd MMM");
+		String reportDate = df.format(c.getTime());
+		return reportDate;
+	}
+	
+	
 	public String dataToString(Calendar c){
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		String reportDate = df.format(c.getTime());
@@ -119,7 +153,7 @@ public class Status_History {
 	
 	//obter verificacao (-1/1/0) para requisicoes (erro/sem erro/sem requisicao) de um dia
 	public int getOneDay( long id, String day ){
-		
+		System.out.println(">>>>>>>>>>>>id: "+id+" dia: "+day);
 		List<Requisicao> reqDia = new ArrayList<Requisicao>();
 		CRequisicao cr = new CRequisicao();
 		try {
@@ -226,6 +260,19 @@ public class Status_History {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+
+	public String getPrimeiroDia() {
+		return primeiroDia;
+	}
+
+
+	public void setPrimeiroDia(String primeiroDia) {
+		this.primeiroDia = primeiroDia;
+	}
+
+
+
 
 
 }

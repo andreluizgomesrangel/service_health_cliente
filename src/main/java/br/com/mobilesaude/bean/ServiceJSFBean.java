@@ -33,7 +33,7 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 		setUrlParameter();
 		setServiceHistoric( id , date );
 		
-		System.out.println(id);
+		//System.out.println(id);
 		
 	}
 	

@@ -41,10 +41,15 @@
 
 		<h:column rendered="#{!empty requisicaoJSFBean.status}">
 			<f:facet name="header">
+				<h:outputText value="Voltar" />
+			</f:facet>
+		</h:column>
+		<h:column rendered="#{!empty requisicaoJSFBean.status}">
+			<f:facet name="header">
 				<h:outputText value="Service" />
 			</f:facet>
     				#{n.service.name}
-			</h:column>
+		</h:column>
 		<h:column rendered="#{!empty requisicaoJSFBean.status}">
 			<f:facet name="header">
 				<h:outputText value="#{requisicaoJSFBean.dias[0]}" />
@@ -146,6 +151,11 @@
 			</h:outputLink>
 		</h:column>
 		
+		<h:column rendered="#{!empty requisicaoJSFBean.status}">
+			<f:facet name="header">
+				<h:outputText value="Ir" />
+			</f:facet>
+		</h:column>
 		
 	</h:dataTable>
 

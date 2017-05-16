@@ -1,6 +1,7 @@
 package br.com.mobilesaude.bean;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,10 +60,10 @@ public class RequisicaoJSFBean {
 		
 		offset = 0;
 		primeiroDia = Calendar.getInstance();
-		inicio = new String(dataToString(primeiroDia));
+		inicio = new String(dataToStringBR1(primeiroDia));
 		
-		setUrlParameter(); //obter offset a partir da url
-		setdiainicial(); //mudar dia inicial a partir do offset
+		setUrlParameter(); //obter offset a partir da url // vera o offset ou uma data e ira setar o dia inicial
+		//setdiainicial(); //mudar dia inicial a partir do offset
 		
 		setDias( qtdDias  ); // ( v ) 
 		setLists();
@@ -71,11 +72,12 @@ public class RequisicaoJSFBean {
 		setServicesInRequests();
 		setServicesInAlert();
 		
-		url = new String("primeiro dia: "+dataToString(primeiroDia)+" causado pelo offset na url services.xhtml?data="+offset);
+		url = new String("primeiro dia: "+inicio+" causado pelo offset na url services.xhtml?data="+offset);
 	}
 	
 	
 	public void setdiainicial(){
+		System.out.println(">>>>>  setando o dia inicial...");
 		if(offset>0){
 			for(int i=0;i<offset; i++)
 			primeiroDia.add(Calendar.DATE, -1);
@@ -84,14 +86,37 @@ public class RequisicaoJSFBean {
 			for(int i=offset;i>0; i--)
 			primeiroDia.add(Calendar.DATE, 1);
 		}
+		inicio = dataToStringBR1(primeiroDia);
+		System.out.println(">>>>>> o primeiro dia: "+inicio);
 	}
 	
 	public void setUrlParameter(){
+		System.out.println(">>>>>   setando data inicial... ");
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
 		String projectId = paramMap.get("inicio");
-		offset = Integer.parseInt( projectId );
-		//inicio = paramMap.get("inicio");
+		if(projectId.length()<6){
+			System.out.println(">>>>>   setando por offset... ");
+			offset = Integer.parseInt( projectId );
+			System.out.println(">>>>> o offset: "+offset);
+			setdiainicial();
+		}
+		else{
+			System.out.println(">>>>>   setando por data... ");
+			inicio = paramMap.get("inicio");
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(sdf.parse(inicio));
+				
+				primeiroDia = cal;
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			System.out.println(">>>>> o inicio: "+dataToStringBR1( primeiroDia ));
+		}
+		
 		
 	}
 	
@@ -106,7 +131,6 @@ public class RequisicaoJSFBean {
 	}*/
 	
 	public void addOffset(){
-		System.out.println("add<<<<<<<");
 		offset+=10;
 	}
 	public void asubOffset(){
@@ -187,19 +211,13 @@ public class RequisicaoJSFBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		/*if(serviceHistoric == null || serviceHistoric.size()==0){
-			System.out.println(">>>>>NUUUUUULLLLLL");
-			serviceHistoric.add(new Requisicao());
-		}*/
-		
 	}
 	
 	//obter o status de cada service de no periodo de qtdDias
 	public void getDays(){
 		
 		for( int i=0; i<qtdServices; i++ ){
-			Status_History s = new Status_History( services.get(i).getId() , qtdDias, primeiroDia );
+			Status_History s = new Status_History( services.get(i).getId() , qtdDias, inicio );
 			status.add( s );
 		}
 	}
@@ -207,6 +225,7 @@ public class RequisicaoJSFBean {
 	public void setDias( int qtdDias  ){
 		
 		Calendar d = Calendar.getInstance();
+		d = primeiroDia;
 		for( int i=0; i<qtdDias; i++ ){
 			dias[i] 	=  dataToStringBR(d);
 			diasUS[i]   =  dataToString(d);
@@ -237,6 +256,12 @@ public class RequisicaoJSFBean {
 		return reportDate;
 	}
 
+	public String dataToStringBR1(Calendar c){
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		String reportDate = df.format(c.getTime());
+		return reportDate;
+	}
+	
 	public String dataToStringBR(Calendar c){
 		DateFormat df = new SimpleDateFormat("dd MMM");
 		String reportDate = df.format(c.getTime());
