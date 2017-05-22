@@ -103,14 +103,15 @@ public class RequisicaoJSFBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
 		String projectId = paramMap.get("inicio");
-		if(projectId.length()<6){
-			System.out.println(">>>>>   setando por offset... ");
+		if( projectId==null ){
+			offset=0;
+			setdiainicial();
+		}
+		else if(projectId.length()<6){
 			offset = Integer.parseInt( projectId );
-			System.out.println(">>>>> o offset: "+offset);
 			setdiainicial();
 		}
 		else{
-			System.out.println(">>>>>   setando por data... ");
 			inicio = paramMap.get("inicio");
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -122,14 +123,11 @@ public class RequisicaoJSFBean {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			System.out.println(">>>>> o inicio: "+dataToStringBR1( primeiroDia ));
 		}
 		proximoDia = setProxDia( inicio, 10 );
 		proximo = dataToStringBR1(proximoDia);
-		System.out.println(">>>>>> proximo dia: "+proximo);
 		antDia = setProxDia( inicio, -10 );
 		anterior = dataToStringBR1(antDia);
-		System.out.println(">>>>>> proximo dia: "+anterior);
 		
 	}
 	
