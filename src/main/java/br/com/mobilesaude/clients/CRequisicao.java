@@ -45,15 +45,15 @@ public class CRequisicao {
 		    code = response.code();
 		    
 		    String xmlString = new String(response.body().string());
-		    //JAXBContext jaxbContext = JAXBContext.newInstance(Requisicoes.class);
 		    JAXBContext jaxbContext = JAXBContext.newInstance(Requisicao.class);
 		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		    StringReader reader = new StringReader( xmlString );
 		    
-		    
 		    //Requisicoes historics = (Requisicoes) unmarshaller.unmarshal(reader);
 		    Requisicao historics = (Requisicao) unmarshaller.unmarshal(reader);
 		    //System.out.println(code);
+		    response.body().close();
+		    response.close();
 		    return code;
 		    
 		    // Do something with the response.
@@ -83,6 +83,10 @@ public class CRequisicao {
 		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		    StringReader reader = new StringReader( xmlString );
 		    historics = (Requisicoes) unmarshaller.unmarshal(reader);
+		    
+		    response.body().close();
+		    
+		    response.close();
 		    return historics.getHitorics();
 		    
 		    // Do something with the response.
@@ -191,6 +195,9 @@ public class CRequisicao {
 			
 			Response response = client.newCall(request).execute();
 			code = response.code();
+			System.out.println( " >>>>>>>  mensagem: "+response.message() );
+			response.body().close();
+			response.close();
 			return code;
 			
 		} catch (IOException e) {
@@ -222,6 +229,9 @@ public int getRequest( Service s ){
 			
 			Response response = client.newCall(request).execute();
 			code = response.code();
+			System.out.println( " >>>>>>>  mensagem: "+response.message() );
+			response.body().close();
+			response.close();
 			return code;
 			
 		} catch (IOException e) {
@@ -270,8 +280,6 @@ public int getRequest( Service s ){
 		
 		int response = request( s );
 		
-		//System.out.println( " "+response );
-		
 		Requisicao h = new Requisicao();
 		h.setResponse(response);
 		h.setIdService( s.getId() );
@@ -292,7 +300,7 @@ public int getRequest( Service s ){
 		
 		List<Service> services = null;
 		try {
-			services = cs.getlistById();
+			services = cs.getlistSortById();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

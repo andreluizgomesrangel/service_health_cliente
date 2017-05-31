@@ -7,6 +7,10 @@ import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,8 +20,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ManagedBean
 @ViewScoped
+@Entity
+@Table(name="requisicao")
 public class Requisicao{
 
+	@Id
+	@GeneratedValue
 	private long id;
 	private long idService;
 	private Date time;

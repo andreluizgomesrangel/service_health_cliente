@@ -19,7 +19,7 @@ import okhttp3.Response;
 public class CService {
 
 	
-	public List<Service> getlistById() throws JAXBException{
+	public List<Service> getlistSortById() throws JAXBException{
 		OkHttpClient client = new OkHttpClient();
 	
 		RequestBody formBody = new FormBody.Builder()
@@ -31,8 +31,6 @@ public class CService {
 	
 		try {
 		    Response response = client.newCall(request).execute();
-		    
-		   // System.out.println(response.code());
 		    
 		    String xmlString = new String(response.body().string());
 		    JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);

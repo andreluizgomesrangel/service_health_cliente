@@ -66,7 +66,7 @@ public class Status_History {
 		
 		List<Service> services = new ArrayList<Service>();
 		try {
-			services = cs.getlistById();
+			services = cs.getlistSortById();
 			service = findService( id, services );
 		} catch (JAXBException e1) {
 			e1.printStackTrace();
@@ -89,8 +89,6 @@ public class Status_History {
 	 */
 	public void verifDias( long id, int n ){
 		
-		System.out.println(">>>>>>>>>>>>>>>>>> dia inicial 2 >>>>>>>>>>>>>>"+primeiroDia);
-		System.out.println(">>>>>>>>>>>>>>>>>> primeiro dia 2 >>>>>>>>>>>>>>"+dataToStringBR1(diaInicial));
 		Calendar diax = Calendar.getInstance();
 				
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -122,8 +120,6 @@ public class Status_History {
 			}
 			diax.add(Calendar.DATE, -1);
 		}
-		System.out.println(">>>>>>>>>>>>>>>>>> dia inicial 3 >>>>>>>>>>>>>>"+primeiroDia);
-		System.out.println(">>>>>>>>>>>>>>>>>> primeiro dia 3 >>>>>>>>>>>>>>"+dataToStringBR1(diaInicial));
 	}
 	
 	public String dataToStringBR1(Calendar c){

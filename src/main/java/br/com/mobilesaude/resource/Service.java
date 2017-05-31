@@ -6,6 +6,12 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,8 +21,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ManagedBean
 @ViewScoped
-public class Service  implements Comparable<Service> {
+@Entity
 
+public class Service  implements Comparable<Service> {
+	
+	
 	private long id;
 	private String name;
 	
@@ -28,6 +37,8 @@ public class Service  implements Comparable<Service> {
 	int timeOut = 0;
 	
 	String img = new String();
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastRequest = new Date();
 	
 	private List<Integer> errors = new ArrayList<Integer>();

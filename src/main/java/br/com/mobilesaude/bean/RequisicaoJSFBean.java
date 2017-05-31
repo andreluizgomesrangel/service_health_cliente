@@ -199,7 +199,7 @@ public class RequisicaoJSFBean {
 		
 		try {
 			allHistorics = ch.getList();
-			services = cs.getlistById();
+			services = cs.getlistSortById();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
