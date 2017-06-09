@@ -18,100 +18,82 @@ import okhttp3.Response;
 
 public class CService {
 
-	
-	public List<Service> getlistSortById() throws JAXBException{
+	public List<Service> getlistSortById() throws JAXBException {
 		OkHttpClient client = new OkHttpClient();
-	
-		RequestBody formBody = new FormBody.Builder()
-		        .build();
+
+		RequestBody formBody = new FormBody.Builder().build();
 		Request request = new Request.Builder()
-		        .url("http://localhost:8080/Service_Health/ws/servico/service/getlistById")
-		        .get()
-		        .build();
-	
+				.url("http://localhost:8080/Service_Health/ws/servico/service/getlistById").get().build();
+
 		try {
-		    Response response = client.newCall(request).execute();
-		    
-		    String xmlString = new String(response.body().string());
-		    JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);
-		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-		    StringReader reader = new StringReader( xmlString );
-		    Services services = (Services) unmarshaller.unmarshal(reader);
-		    
-		    return services.getServices();
-		    
-		    // Do something with the response.
+			Response response = client.newCall(request).execute();
+
+			String xmlString = new String(response.body().string());
+			JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			StringReader reader = new StringReader(xmlString);
+			Services services = (Services) unmarshaller.unmarshal(reader);
+
+			return services.getServices();
+
+			// Do something with the response.
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 		return null;
 	}
-	
 
-	
-	
-	public int insert(String name, String url, String resp) throws JAXBException{
+	public int insert(String name, String url, String resp) throws JAXBException {
 		OkHttpClient client = new OkHttpClient();
-	
+
 		int code = 200;
-		
-		RequestBody formBody = new FormBody.Builder()
-		        .add("name", name)
-		        .add("url", url)
-		        .build();
-		Request request = new Request.Builder()
-		        .url("http://localhost:8080/Service_Health/ws/servico/service/insert")
-		        .post(formBody)
-		        .build();
+
+		RequestBody formBody = new FormBody.Builder().add("name", name).add("url", url).build();
+		Request request = new Request.Builder().url("http://localhost:8080/Service_Health/ws/servico/service/insert")
+				.post(formBody).build();
 		try {
 			Response response = client.newCall(request).execute();
-		   
+
 			code = response.code();
-			
-		    //System.out.println(response.code());
-		    
-		    String xmlString = new String(response.body().string());
-		    JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);
-		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-		    StringReader reader = new StringReader( xmlString );
-		    Services services = (Services) unmarshaller.unmarshal(reader);
-		    
-		    return code;
-		    
-		    // Do something with the response.
+
+			// System.out.println(response.code());
+
+			String xmlString = new String(response.body().string());
+			JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			StringReader reader = new StringReader(xmlString);
+			Services services = (Services) unmarshaller.unmarshal(reader);
+
+			return code;
+
+			// Do something with the response.
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 		return code;
-		
+
 	}
-	
-	public void update(String id,  String resp) throws JAXBException{
+
+	public void update(String id, String resp) throws JAXBException {
 		OkHttpClient client = new OkHttpClient();
-	
-		RequestBody formBody = new FormBody.Builder()
-		        .add("id", id)
-		        .add("response", resp)
-		        .build();
-		Request request = new Request.Builder()
-		        .url("http://localhost:8080/Service_Health/ws/servico/service/update")
-		        .post(formBody)
-		        .build();
-	
+
+		RequestBody formBody = new FormBody.Builder().add("id", id).add("response", resp).build();
+		Request request = new Request.Builder().url("http://localhost:8080/Service_Health/ws/servico/service/update")
+				.post(formBody).build();
+
 		try {
-		    Response response = client.newCall(request).execute();
-		    
-		    
-		    String xmlString = new String(response.body().string());
-		    JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);
-		    Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-		    StringReader reader = new StringReader( xmlString );
-		    Services services = (Services) unmarshaller.unmarshal(reader);
-		    
-		    // Do something with the response.
+			Response response = client.newCall(request).execute();
+
+			String xmlString = new String(response.body().string());
+			JAXBContext jaxbContext = JAXBContext.newInstance(Services.class);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			StringReader reader = new StringReader(xmlString);
+			Services services = (Services) unmarshaller.unmarshal(reader);
+
+			// Do something with the response.
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
-	
-}	
+
+}

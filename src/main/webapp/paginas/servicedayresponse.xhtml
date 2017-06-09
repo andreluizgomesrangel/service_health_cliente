@@ -41,15 +41,16 @@
 	<br />
 	<br />
 	
-	<h:outputText value = "ID: #{serviceJSFBean.serviceHistoric[0].idService}" /> 
+	<h:outputText value = "ID: #{ServiceDayResponseBean.estatisticas.idService}" /> 
 	<br />
-	<h:outputText value = "DATA: #{serviceJSFBean.serviceHistoric[0].dataBR}" />
+	<h:outputText value = "DATA: #{ServiceDayResponseBean.estatisticas.dia}" />
 	<br />
+	<h:outputText value = "RESPONSE CODE: #{ServiceDayResponseBean.estatisticas.respostas[0].response}" />
 	
 	<br />
+	<br />
 
-
-	<h:dataTable var="n" value="#{serviceJSFBean.estatisticas.respostas}"
+	<h:dataTable var="n" value="#{ServiceDayResponseBean.estatisticas.respostas}"
 						id="demo-table-porcents"
 		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
 		  				style="text-align:center; font-size:15; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
@@ -62,29 +63,23 @@
 			<f:facet name="header" style="font-weight:bold text-align:center;">%</f:facet>
     				#{n.porcentagem}
 		</h:column>
-		<h:column>
-			<f:facet name="header" style="font-weight:bold text-align:center;">Quantidade</f:facet>
-    				#{n.qtd}
-		</h:column>
 	</h:dataTable>
 	
 	<br />
 	<br />
 	
 	
-	<h:outputText value = "TOTAL DE REQUISICOES: #{serviceJSFBean.estatisticas.qtdRequisicoes}" />
-	<br />
-	<br />
-	<h:dataTable var="n" value="#{serviceJSFBean.serviceHistoric}"
+	
+	<h:dataTable var="n" value="#{ServiceDayResponseBean.serviceHistoric}"
 						id="demo-table-requests"
 		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
 		  				style="text-align:center; font-size:15; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
 		  				width="50%">
-		<h:column rendered="#{!empty serviceJSFBean.serviceHistoric}">
+		<h:column rendered="#{!empty ServiceDayResponseBean.serviceHistoric}">
 			<f:facet name="header" style="font-weight:bold text-align:center;">Details</f:facet>
     				#{n.details}
 			  </h:column>
-		<h:column rendered="#{!empty serviceJSFBean.serviceHistoric}">
+		<h:column rendered="#{!empty ServiceDayResponseBean.serviceHistoric}">
 			<f:facet name="header">
 				<h:outputText value="Time" />
 			</f:facet>

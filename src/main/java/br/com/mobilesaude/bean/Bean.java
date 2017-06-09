@@ -1,4 +1,5 @@
 package br.com.mobilesaude.bean;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,31 +20,24 @@ public class Bean {
 
 	List<LastRequest> lastRequests = new ArrayList<LastRequest>();
 	CRequisicao cr = new CRequisicao();
-	
-	
-	public Bean(){
-		
-		
+
+	public Bean() {
+
 		try {
 			lastRequests = cr.getLastOnes();
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
 
+	}
 
 	public List<LastRequest> getLastRequests() {
 		return lastRequests;
 	}
 
-
 	public void setLastRequests(List<LastRequest> lastRequests) {
 		this.lastRequests = lastRequests;
 	}
 
-	
-	
-	
 }

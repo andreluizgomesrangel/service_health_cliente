@@ -25,7 +25,5 @@ public class Requisicoes {
 	public void setHitorics(List<Requisicao> hitorics) {
 		this.hitorics = hitorics;
 	}
-	
-	
-	
+
 }

@@ -23,6 +23,4 @@ public class LastRequests {
 		this.lastRequest = lastRequest;
 	}
 
-	
-	
 }

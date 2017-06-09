@@ -18,18 +18,7 @@ public class Temporizador{
 	@Schedule(second = "*/60", minute = "*", hour = "*")
 	public void doWork() {
 
-		/*CService cs = new CService();
-		List<Service> list = new ArrayList<Service>();
-		try {
-			list = cs.getlistSortById();
-			for(Service x : list){
-				Thread t = new Thread(new Pipeline(x));
-		        t.start();
-			}
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();*/
-		//}
+		
 	
 	}
 	

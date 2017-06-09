@@ -24,9 +24,5 @@ public class Services {
 	public void setServices(List<Service> services) {
 		this.services = services;
 	}
-	
-	
-	
+
 }
-
-

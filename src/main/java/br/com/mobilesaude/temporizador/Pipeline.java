@@ -17,7 +17,7 @@ public class Pipeline implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("executar pipeline service: "+s.getId());
+		//System.out.println("executar pipeline service: "+s.getId());
 		cr.newRequest(s);
 		
 	}

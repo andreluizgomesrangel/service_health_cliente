@@ -19,7 +19,7 @@ import br.com.mobilesaude.resource.TipoDeResposta;
 
 @ManagedBean
 @ViewScoped
-public class ServiceJSFBean extends RequisicaoJSFBean {
+public class ServiceDayResponseBean extends RequisicaoJSFBean {
 
 	private long id;
 	private String date = new String();
@@ -30,8 +30,9 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 	List<Requisicao> allHistorics = new ArrayList<Requisicao>();
 	List<Service> services = new ArrayList<Service>();
 	EstatisticasServicoDia estatisticas = new EstatisticasServicoDia();
+	private int response;
 
-	public ServiceJSFBean() {
+	public ServiceDayResponseBean() {
 		setLists();
 		setUrlParameter();
 		setServiceHistoric(id, date);
@@ -61,11 +62,13 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
 		String projectId = paramMap.get("id");
 		id = Integer.parseInt(projectId);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> id url2: "+id);
+		String projectResponse = paramMap.get("response");
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> response url"+projectResponse);
+		response = Integer.parseInt(projectId);
 		date = paramMap.get("date");
 		CRequisicao ch = new CRequisicao();
 		try {
-			estatisticas = ch.getDay(projectId, date);
+			estatisticas = ch.getDayResponse(projectId, date, projectResponse);
 			setarEstatisticas(estatisticas);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
@@ -139,6 +142,14 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 
 	public void setEstatisticas(EstatisticasServicoDia estatisticas) {
 		this.estatisticas = estatisticas;
+	}
+
+	public int getResponse() {
+		return response;
+	}
+
+	public void setResponse(int response) {
+		this.response = response;
 	}
 
 }
