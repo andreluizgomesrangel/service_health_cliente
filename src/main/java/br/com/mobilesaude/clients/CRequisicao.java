@@ -147,16 +147,17 @@ public class CRequisicao {
 		return estatisticasDoDiaDeUmServico;
 	}
 
-	
 	public EstatisticasServicoDia getDayResponse(String id, String day, String responseCode) throws JAXBException {
 		OkHttpClient client = new OkHttpClient();
 
 		int code = 0;
 
 		System.out.println(day);
-		RequestBody formBody = new FormBody.Builder().add("id", id).add("day", day).add("response", responseCode).build();
-		Request request = new Request.Builder().url("http://localhost:8080/Service_Health/ws/servico/requisicao/getDayResponse")
-				.post(formBody).build();
+		RequestBody formBody = new FormBody.Builder().add("id", id).add("day", day).add("response", responseCode)
+				.build();
+		Request request = new Request.Builder()
+				.url("http://localhost:8080/Service_Health/ws/servico/requisicao/getDayResponse").post(formBody)
+				.build();
 		EstatisticasServicoDia estatisticasDoDiaDeUmServico = new EstatisticasServicoDia();
 		Requisicoes historics = null;
 		try {
@@ -181,7 +182,7 @@ public class CRequisicao {
 		}
 		return estatisticasDoDiaDeUmServico;
 	}
-	
+
 	public int postRequest(Service s) {
 
 		int code = 0;

@@ -30,7 +30,6 @@ public class ServiceDayResponseBean extends RequisicaoJSFBean {
 	List<Requisicao> allHistorics = new ArrayList<Requisicao>();
 	List<Service> services = new ArrayList<Service>();
 	EstatisticasServicoDia estatisticas = new EstatisticasServicoDia();
-	private int response;
 
 	public ServiceDayResponseBean() {
 		setLists();
@@ -61,15 +60,16 @@ public class ServiceDayResponseBean extends RequisicaoJSFBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
 		String projectId = paramMap.get("id");
-		id = Integer.parseInt(projectId);
 		String projectResponse = paramMap.get("response");
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> response url"+projectResponse);
-		response = Integer.parseInt(projectId);
+		id = Integer.parseInt(projectId);
 		date = paramMap.get("date");
 		CRequisicao ch = new CRequisicao();
+		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>.>>>>>>>>>>>>>> ServiceDayResponseBean: "+projectResponse);
 		try {
 			estatisticas = ch.getDayResponse(projectId, date, projectResponse);
 			setarEstatisticas(estatisticas);
+			//System.out.println(" >>>>>>>>>>>>>>>>>>>> siiiiiize2222: "+estatisticas.getRequisicoes().size());
+
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -142,14 +142,6 @@ public class ServiceDayResponseBean extends RequisicaoJSFBean {
 
 	public void setEstatisticas(EstatisticasServicoDia estatisticas) {
 		this.estatisticas = estatisticas;
-	}
-
-	public int getResponse() {
-		return response;
-	}
-
-	public void setResponse(int response) {
-		this.response = response;
 	}
 
 }
