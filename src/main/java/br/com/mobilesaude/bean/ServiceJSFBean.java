@@ -61,7 +61,7 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 		Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
 		String projectId = paramMap.get("id");
 		id = Integer.parseInt(projectId);
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> id url2: "+id);
+		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> id url2: "+id);
 		date = paramMap.get("date");
 		CRequisicao ch = new CRequisicao();
 		try {

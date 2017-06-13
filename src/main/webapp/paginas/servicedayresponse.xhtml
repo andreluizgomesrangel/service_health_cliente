@@ -1,31 +1,43 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-	
-	
-<style>	
+
+
+<style>
 #demo-table-porcents {
-    border-collapse: collapse;
-    width: 20%;
-    tr:nth-child(even){background-color: #f2f2f2}
-    th, td {
-    text-align: left;
-    padding: 8px;
-	}
-	th {background-color: black;color: white;}
+	border-collapse: collapse;
+	width: 20%;
+	tr: nth-child(even){background-color: #f2f2f2
 }
 
-#demo-table-requests {
-    border-collapse: collapse;
-    width: 70%;
-    tr:nth-child(even){background-color: #f2f2f2}
-    th, td {
-    text-align: left;
-    padding: 8px;
-	}
-	th {background-color: black;color: white;}
+th, td {
+	text-align: left;
+	padding: 8px;
 }
-</style>	
+
+th {
+	background-color: black;
+	color: white;
+}
+
+}
+#demo-table-requests {
+	border-collapse: collapse;
+	width: 70%;
+	tr: nth-child(even){background-color: #f2f2f2
+}
+
+th, td {
+	text-align: left;
+	padding: 8px;
+}
+
+th {
+	background-color: black;
+	color: white;
+}
+}
+</style>
 
 
 <h:head>
@@ -40,21 +52,24 @@
 
 	<br />
 	<br />
-	
-	<h:outputText value = "ID: #{ServiceDayResponseBean.estatisticas.idService}" /> 
+
+	<h:outputText
+		value="ID: #{ServiceDayResponseBean.estatisticas.idService}" />
 	<br />
-	<h:outputText value = "DATA: #{ServiceDayResponseBean.estatisticas.dia}" />
+	<h:outputText value="DATA: #{ServiceDayResponseBean.estatisticas.dia}" />
 	<br />
-	<h:outputText value = "RESPONSE CODE: #{ServiceDayResponseBean.estatisticas.respostas[0].response}" />
-	
+	<h:outputText
+		value="RESPONSE CODE: #{ServiceDayResponseBean.estatisticas.respostas[0].response}" />
+
 	<br />
 	<br />
 
-	<h:dataTable var="n" value="#{ServiceDayResponseBean.estatisticas.respostas}"
-						id="demo-table-porcents"
-		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
-		  				style="text-align:center; font-size:15; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
-		  				width="50%">
+	<h:dataTable var="n"
+		value="#{ServiceDayResponseBean.estatisticas.respostas}"
+		id="demo-table-porcents" border="1" cellpadding="3" cellspacing="1"
+		rules="rows" frame="box"
+		style="text-align:center; font-size:15; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
+		width="50%">
 		<h:column>
 			<f:facet name="header" style="font-weight:bold text-align:center;">Response Code</f:facet>
     				#{n.response}
@@ -64,17 +79,16 @@
     				#{n.porcentagem}
 		</h:column>
 	</h:dataTable>
-	
+
 	<br />
 	<br />
-	
-	
-	
+
+
 	<h:dataTable var="n" value="#{ServiceDayResponseBean.serviceHistoric}"
-						id="demo-table-requests"
-		  				border="1" cellpadding="3" cellspacing="1" rules="rows" frame="box"
-		  				style="text-align:center; font-size:15; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
-		  				width="50%">
+		id="demo-table-requests" border="1" cellpadding="3" cellspacing="1"
+		rules="rows" frame="box"
+		style="text-align:center; font-size:15; border-style:solid; tr:nth-child(even){background-color: #f2f2f2}; th {background-color: black;color: white;}"
+		width="50%">
 		<h:column rendered="#{!empty ServiceDayResponseBean.serviceHistoric}">
 			<f:facet name="header" style="font-weight:bold text-align:center;">Details</f:facet>
     				#{n.details}

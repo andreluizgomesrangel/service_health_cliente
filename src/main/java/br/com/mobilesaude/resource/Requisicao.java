@@ -102,23 +102,18 @@ public class Requisicao {
 	public void setResponse(int response) {
 
 		if (response == 200) {
-			setDetails("Service is operating normally");
 			setImg("status0.gif");
 		}
 		if (response == 404) {
-			setDetails("Not found!");
 			setImg("status3.gif");
 		}
 		if (response == 500) {
-			setDetails("Internal Server Error");
 			setImg("status3.gif");
 		}
 		if (response == 503) {
-			setDetails("Service Unavailable");
 			setImg("status3.gif");
 		}
 		if (response == 504) {
-			setDetails("Gateway Time-out");
 			setImg("status3.gif");
 		}
 

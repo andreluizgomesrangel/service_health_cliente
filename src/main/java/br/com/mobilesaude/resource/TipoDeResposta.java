@@ -19,16 +19,32 @@ public class TipoDeResposta {
 	private int response;
 	@XmlElement(name = "porcentagemDoTipo")
 	private String porcentagem;
-
+	@XmlElement(name = "detalhes")
+	private String details;
+	
+	
 	public TipoDeResposta() {
 
 	}
 
-	public TipoDeResposta(int qtd, int response, int qtdRequisicoes) {
+	public TipoDeResposta(int qtd, int response, int qtdRequisicoes, String details) {
 		this.qtd = qtd;
 		this.response = response;
+		this.details = details;
 		double d = ((double) (qtd) * 100.0 / (double) (qtdRequisicoes));
 		this.porcentagem = converterDoubleParaDuasCasas(d);
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
+	public void setPorcentagem(String porcentagem) {
+		this.porcentagem = porcentagem;
 	}
 
 	private String converterDoubleParaDuasCasas(double d) {

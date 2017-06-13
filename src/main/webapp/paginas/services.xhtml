@@ -5,7 +5,7 @@
 <style>
 #demo-table-lastones {
 	border-collapse: collapse;
-	width: 50%;
+	width: 60%;
 	tr: nth-child(even){background-color: #f2f2f2
 }
 
@@ -39,7 +39,7 @@ th {
 
 #demo-table-calendar-interno {
 	border-collapse: collapse;
-	width: 50%;
+	width: 60%;
 	tr: nth-child(even){background-color: #f2f2f2
 }
 
@@ -74,16 +74,16 @@ th {
 		width="50%">
 
 		<h:column rendered="#{!empty bean.lastRequests}">
-			<f:facet name="header" style="font-weight:bold text-align:left;">Service</f:facet>
+			<f:facet name="header" style="font-weight:bold text-align:left;"><img src="service32.png"></img></f:facet>
 			<img src="#{n.img}"></img>
     				    #{n.nome}
 		</h:column>
 		<h:column rendered="#{!empty bean.lastRequests}">
-			<f:facet name="header" style="font-weight:bold text-align:left;">Response</f:facet>
+			<f:facet name="header" style="font-weight:bold text-align:left;"><img src="response32.png"></img></f:facet>
     				    #{n.resposta}
 		</h:column>
 		<h:column rendered="#{!empty bean.lastRequests}">
-			<f:facet name="header" style="font-weight:bold text-align:left;">Time</f:facet>
+			<f:facet name="header" style="font-weight:bold text-align:left;"><img src="time32.png"></img></f:facet>
     				    #{n.hora3}
 		</h:column>
 	</h:dataTable>
@@ -95,7 +95,7 @@ th {
 		<tr>
 			<th><h:outputLink value="services.xhtml">
 					<f:param name="inicio" value="#{requisicaoJSFBean.anterior}" />
-					<h:outputText value="#{requisicaoJSFBean.anterior}" />
+					<img src="esquerda.png"></img>
 				</h:outputLink></th>
 
 			<th><h:dataTable var="n" value="#{requisicaoJSFBean.status}"
@@ -215,7 +215,7 @@ th {
 
 			<th><h:outputLink value="services.xhtml">
 					<f:param name="inicio" value="#{requisicaoJSFBean.proximo}" />
-					<h:outputText value="#{requisicaoJSFBean.proximo}" />
+					<img src="direita.png"></img>
 				</h:outputLink></th>
 		</tr>
 	</table>
