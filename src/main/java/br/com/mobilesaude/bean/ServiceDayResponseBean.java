@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.bind.JAXBException;
 
-import br.com.mobilesaude.clients.CRequisicao;
+import br.com.mobilesaude.clients.RequisicaoDao;
 import br.com.mobilesaude.clients.CService;
 import br.com.mobilesaude.resource.EstatisticasServicoDia;
 import br.com.mobilesaude.resource.Requisicao;
@@ -39,7 +39,7 @@ public class ServiceDayResponseBean extends RequisicaoJSFBean {
 
 	public void setLists() {
 
-		CRequisicao ch = new CRequisicao();
+		RequisicaoDao ch = new RequisicaoDao();
 		CService cs = new CService();
 
 		try {
@@ -63,12 +63,10 @@ public class ServiceDayResponseBean extends RequisicaoJSFBean {
 		String projectResponse = paramMap.get("response");
 		id = Integer.parseInt(projectId);
 		date = paramMap.get("date");
-		CRequisicao ch = new CRequisicao();
-		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>.>>>>>>>>>>>>>> ServiceDayResponseBean: "+projectResponse);
+		RequisicaoDao ch = new RequisicaoDao();
 		try {
 			estatisticas = ch.getDayResponse(projectId, date, projectResponse);
 			setarEstatisticas(estatisticas);
-			//System.out.println(" >>>>>>>>>>>>>>>>>>>> siiiiiize2222: "+estatisticas.getRequisicoes().size());
 
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block

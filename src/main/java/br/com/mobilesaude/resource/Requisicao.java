@@ -137,8 +137,9 @@ public class Requisicao {
 		this.timeString = timeString;
 	}
 
+	
 	public String dataToString(Date d) {
-		DateFormat df = new SimpleDateFormat("hh:mm:ss");
+		DateFormat df = new SimpleDateFormat("hh:mm:ss a");
 		String reportDate = df.format(d.getTime());
 		return reportDate;
 	}

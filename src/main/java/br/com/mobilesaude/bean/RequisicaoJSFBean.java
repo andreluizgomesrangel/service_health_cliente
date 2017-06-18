@@ -20,7 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
 
-import br.com.mobilesaude.clients.CRequisicao;
+import br.com.mobilesaude.clients.RequisicaoDao;
 import br.com.mobilesaude.clients.CService;
 import br.com.mobilesaude.resource.Requisicao;
 import br.com.mobilesaude.resource.Service;
@@ -191,7 +191,7 @@ public class RequisicaoJSFBean {
 
 	public void setLists() {
 
-		CRequisicao ch = new CRequisicao();
+		RequisicaoDao ch = new RequisicaoDao();
 		CService cs = new CService();
 
 		try {
@@ -240,7 +240,7 @@ public class RequisicaoJSFBean {
 
 	public void setServiceHistoric(long serviceId, String day) {
 
-		CRequisicao ch = new CRequisicao();
+		RequisicaoDao ch = new RequisicaoDao();
 		try {
 			serviceHistoric = ch.getDay(serviceId + "", day).getRequisicoes();
 		} catch (JAXBException e) {

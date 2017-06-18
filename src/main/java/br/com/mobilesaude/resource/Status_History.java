@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import br.com.mobilesaude.clients.CRequisicao;
+import br.com.mobilesaude.clients.RequisicaoDao;
 import br.com.mobilesaude.clients.CService;
 
 @XmlRootElement(name = "status_history")
@@ -46,8 +46,6 @@ public class Status_History {
 
 	public Status_History(long id, int n, String primeiroDia) {
 		this.primeiroDia = primeiroDia;
-		// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> >>>>>>>>>>>
-		// primeiro dia:"+primeiroDia);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
@@ -99,13 +97,9 @@ public class Status_History {
 			e.printStackTrace();
 		}
 
-		// diax = diaInicial.getInstance();
-
 		for (int i = 0; i < n; i++) {
 
 			String dayString = dataToString(diax);
-			// System.out.println(">>>>>>>>>>>> dia x
-			// >>>>>>>>>>"+dataToStringBR1(diax));
 
 			int v = getOneDay(id, dayString);
 			dia[i] = v;
@@ -150,9 +144,8 @@ public class Status_History {
 	// obter verificacao (-1/1/0) para requisicoes (erro/sem erro/sem
 	// requisicao) de um dia
 	public int getOneDay(long id, String day) {
-		// System.out.println(">>>>>>>>>>>>id: "+id+" dia: "+day);
 		List<Requisicao> reqDia = new ArrayList<Requisicao>();
-		CRequisicao cr = new CRequisicao();
+		RequisicaoDao cr = new RequisicaoDao();
 		try {
 			reqDia = cr.getDay(id + "", day).getRequisicoes();
 		} catch (JAXBException e) {

@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.bind.JAXBException;
 
-import br.com.mobilesaude.clients.CRequisicao;
+import br.com.mobilesaude.clients.RequisicaoDao;
 import br.com.mobilesaude.clients.CService;
 import br.com.mobilesaude.resource.EstatisticasServicoDia;
 import br.com.mobilesaude.resource.Requisicao;
@@ -39,7 +39,7 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 
 	public void setLists() {
 
-		CRequisicao ch = new CRequisicao();
+		RequisicaoDao ch = new RequisicaoDao();
 		CService cs = new CService();
 
 		try {
@@ -62,7 +62,7 @@ public class ServiceJSFBean extends RequisicaoJSFBean {
 		String projectId = paramMap.get("id");
 		id = Integer.parseInt(projectId);
 		date = paramMap.get("date");
-		CRequisicao ch = new CRequisicao();
+		RequisicaoDao ch = new RequisicaoDao();
 		try {
 			estatisticas = ch.getDay(projectId, date);
 			setarEstatisticas(estatisticas);

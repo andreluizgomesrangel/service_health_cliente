@@ -1,16 +1,16 @@
 package br.com.mobilesaude.temporizador;
 
-import br.com.mobilesaude.clients.CRequisicao;
+import br.com.mobilesaude.clients.RequisicaoDao;
 import br.com.mobilesaude.resource.Service;
 
 public class Pipeline implements Runnable {
 
-	CRequisicao cr;
+	RequisicaoDao cr;
 	Service s;
 	
 	public Pipeline(Service s){
 		this.s = s;
-		cr = new CRequisicao();
+		cr = new RequisicaoDao();
 		
 	}
 	

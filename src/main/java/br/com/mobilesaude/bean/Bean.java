@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.bind.JAXBException;
-import br.com.mobilesaude.clients.CRequisicao;
+import br.com.mobilesaude.clients.RequisicaoDao;
 import br.com.mobilesaude.clients.CService;
 import br.com.mobilesaude.resource.LastRequest;
 import br.com.mobilesaude.resource.Requisicao;
@@ -19,7 +19,7 @@ import br.com.mobilesaude.resource.Status_History;
 public class Bean {
 
 	List<LastRequest> lastRequests = new ArrayList<LastRequest>();
-	CRequisicao cr = new CRequisicao();
+	RequisicaoDao cr = new RequisicaoDao();
 
 	public Bean() {
 

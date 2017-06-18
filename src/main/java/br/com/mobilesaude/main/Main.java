@@ -9,7 +9,7 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 import br.com.mobilesaude.bean.RequisicaoJSFBean;
-import br.com.mobilesaude.clients.CRequisicao;
+import br.com.mobilesaude.clients.RequisicaoDao;
 import br.com.mobilesaude.clients.CService;
 import br.com.mobilesaude.resource.LastRequest;
 import br.com.mobilesaude.resource.Requisicao;

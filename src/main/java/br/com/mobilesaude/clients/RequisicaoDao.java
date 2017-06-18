@@ -26,7 +26,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class CRequisicao {
+public class RequisicaoDao {
 
 	public int insert(String idService, String resp) throws JAXBException {
 		OkHttpClient client = new OkHttpClient();
